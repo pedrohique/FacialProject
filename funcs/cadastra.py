@@ -7,28 +7,26 @@ import json
 import configparser
 import cryptocode
 import pyodbc
+import requests
 
-'''Retorna os cribs que estão atrasados a x tempo'''
+
 config = configparser.ConfigParser()
 config.read('config.ini')
 
-'''CNX DB - hom'''
-server_hom = config.get('dados_banco_hom', 'server')
-port_hom = config.get('dados_banco_hom', 'port')
-database_hom = config.get('dados_banco_hom', 'database')
-uid_hom = config.get('dados_banco_hom', 'uid')
-pwd_hom = config.get('dados_banco_hom', 'pwd')
 
-uid_hom = cryptocode.decrypt(uid_hom, "i9brgroup")
-pwd_hom = cryptocode.decrypt(pwd_hom, "i9brgroup")
+api_url_base = 'http://'+config.get('dados_api', 'server')+':'+config.get('dados_api', 'port') + '/'
 
 
-cnxn_hom = pyodbc.connect(
-        f'DRIVER=SQL Server;SERVER={server_hom};PORT={port_hom};DATABASE={database_hom};UID={uid_hom};PWD={pwd_hom};')
+loguin = {
+    "username": config.get('dados_api', 'uid'),
+    "password": config.get('dados_api', 'pwd'),
+    "method": "OAuth2PasswordBearer",
+}
 
-
-cursor_dev = cnxn_hom.cursor()
-
+token = requests.post(api_url_base + 'token', data=loguin)
+headers = {
+           "Authorization": "Bearer %s" % token.json()['access_token']
+}
 
 
 def Cadastra(finger, siteid):
@@ -41,26 +39,31 @@ def Cadastra(finger, siteid):
             print("INFO: Sensor les not support LED. Error:", str(exc))
 
 
-    def trata_dados(dados):
-        data_dict = {}
-        for emp in dados:
-            data_dict[emp[0]] = emp[1]
-        return data_dict
+    def trata_dados(re):
+        if re.reason == 'OK':
+            bios = re.json()
+            data_dict = {}
+            for emp in bios['biometrics']:
+                if emp['FingerPrintTemplate']:
+                    data_dict[emp['ID']] = list(emp['FingerPrintTemplate'])
+                else:
+                    data_dict[emp['ID']] = None
+            return data_dict
 
 
     def add_newdata(id, template):
-        template_bit = bytearray(template)
-        cursor_dev.execute(f'UPDATE EMPLOYEE SET "FingerPrintTemplate" = ? WHERE "ID" = ?', template_bit, id)
-        cursor_dev.commit()
+        resp = requests.post(api_url_base + f'atualizabio', params={'id': id}, json=template, headers=headers)
+        return resp
 
-    cursor_dev.execute(f"SELECT ID, FingerPrintTemplate FROM EMPLOYEE WHERE EmployeeSiteID = ?", siteid)
-    data = cursor_dev.fetchall()
-    data_dict = trata_dados(data)
 
     while True:
+        data = {
+            'siteid': siteid
+        }
+        re = requests.get(api_url_base + 'employeebio', params=data, headers=headers)
+        data_dict = trata_dados(re)
 
         set_led_local(color=3, mode=1)
-
         id = input('Digite o ID do funcionario ou 0 para retornar ao menu anterior: ')
 
         if id in data_dict.keys() and id != '0':  # Verifica se o usuario esta cadastrado no sistema
@@ -129,10 +132,14 @@ def Cadastra(finger, siteid):
                 print("Downloading template...")
 
                 data_new = finger.get_fpdata("char", 1)
-                add_newdata(id, data_new)
+                resp = add_newdata(id, data_new)
 
                 set_led_local(color=2, speed=150, mode=6)
-                print(f"Digital cadastrada com sucesso - Funcionario: {id}.\n")
+                print(resp.status_code)
+                if resp.status_code == 200:
+                    print(f"Digital cadastrada com sucesso - Funcionario: {id}.\n")
+                else:
+                    print('não foi possivel cadastrar a digital, tente novamente.')
             else:
                 print(f'A digital do funcionario {id} ja esta cadastrada, delete a digital para cadastrar novamente.\n')
         elif id == '0':

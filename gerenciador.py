@@ -8,10 +8,10 @@ import funcs
 
 
 #  Faz a conexão com o leitor biometrico
-uart = serial.Serial("COM3", baudrate=57600, timeout=1)
+uart = serial.Serial("COM11", baudrate=57600, timeout=1)
 finger = adafruit_fingerprint.Adafruit_Fingerprint(uart)
 
-siteid = 'SZNGRP'
+siteid = 'DEFAULT'
 
 
 while True:

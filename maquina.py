@@ -6,40 +6,32 @@ import adafruit_fingerprint
 import configparser
 import cryptocode
 import pyodbc
+import requests
 
-'''Retorna os cribs que estão atrasados a x tempo'''
+
 config = configparser.ConfigParser()
 config.read('config.ini')
 
-'''CNX DB - hom'''
-server_hom = config.get('dados_banco_hom', 'server')
-port_hom = config.get('dados_banco_hom', 'port')
-database_hom = config.get('dados_banco_hom', 'database')
-uid_hom = config.get('dados_banco_hom', 'uid')
-pwd_hom = config.get('dados_banco_hom', 'pwd')
 
-uid_hom = cryptocode.decrypt(uid_hom, "i9brgroup")
-pwd_hom = cryptocode.decrypt(pwd_hom, "i9brgroup")
+api_url_base = 'http://'+config.get('dados_api', 'server')+':'+config.get('dados_api', 'port') + '/'
 
 
-cnxn_hom = pyodbc.connect(
-        f'DRIVER=SQL Server;SERVER={server_hom};PORT={port_hom};DATABASE={database_hom};UID={uid_hom};PWD={pwd_hom};')
-
-
-cursor_dev = cnxn_hom.cursor()
-
-
+loguin = {
+    "username": config.get('dados_api', 'uid'),
+    "password": config.get('dados_api', 'pwd'),
+    "method": "OAuth2PasswordBearer",
+}
 
 
 print('Tentando conexão com o leitor biometrico')
 #  Faz a conexão com o leitor biometrico
-uart = serial.Serial("COM3", baudrate=57600, timeout=1)
+uart = serial.Serial("ttyUSB1", baudrate=57600, timeout=1)
 finger = adafruit_fingerprint.Adafruit_Fingerprint(uart)
 print('Conexão -- OK')
 
 print('Tentando conexão com o Arduino')
-ser = serial.Serial()#
-ser.port = 'COM4'
+ser = serial.Serial()
+ser.port = "ttyUSB0"
 ser.baudrate = 9600
 
 ser.open()
@@ -51,18 +43,30 @@ def send_arduino(string):
     ser.write(string.encode('utf-8'))
 
 def atualiza_json(siteid):
-    cursor_dev.execute(f"SELECT ID, FingerPrintTemplate FROM EMPLOYEE WHERE EmployeeSiteID = ?", siteid)
-    data = cursor_dev.fetchall()
-    data_dict = {}
-    for emp in data:
-        if emp[1]:
-            data_dict[emp[0]] = list(emp[1])
-        else:
-            data_dict[emp[0]] = emp[1]
-    with open("template.json", "w") as arquivo:
-        json.dump(data_dict, arquivo, indent=4)
 
-siteid = 'SZNGRP'
+    token = requests.post(api_url_base + 'token', data=loguin)
+
+    headers = {
+        "Authorization": "Bearer %s" % token.json()['access_token']
+        }
+    data = {
+        'siteid': siteid
+    }
+
+    re = requests.get(api_url_base + 'employeebio', params=data, headers=headers)
+
+    if re.reason == 'OK':
+        bios = re.json()
+        data_dict = {}
+        for emp in bios['biometrics']:
+            if emp['FingerPrintTemplate']:
+                data_dict[emp['ID']] = [list(emp['FingerPrintTemplate']), emp['BadgeNumber']]
+            else:
+                data_dict[emp['ID']] = [None, emp['BadgeNumber']]
+        with open("template.json", "w") as arquivo:
+            json.dump(data_dict, arquivo, indent=4)
+
+siteid = 'DEFAULT'
 atualiza_json(siteid)
 
 while True:
@@ -94,15 +98,15 @@ while True:
                         if finger.image_2_tz(1) != adafruit_fingerprint.OK:
                             pass
 
-                        finger.send_fpdata(data[key], "char", 2)
+                        finger.send_fpdata(data[key][0], "char", 2)
 
                         i = finger.compare_templates()
 
                         if i == adafruit_fingerprint.OK:
                             i = finger.finger_search()
                             set_led_local(color=2, speed=150, mode=6)
-                            print(f"Acesso liberado - Usuario: {key}.")
-                            # send_arduino(key)
+                            print(f"Acesso liberado - Usuario: {key} badge = {data[key][1]}.")
+                            # send_arduino(data[key][1])
                             # atualiza_json(siteid)  # Pendente
                         elif i == adafruit_fingerprint.NOMATCH:
                             set_led_local(color=1, mode=2, speed=20, cycles=10)

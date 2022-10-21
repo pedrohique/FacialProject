@@ -8,46 +8,50 @@ import json
 import configparser
 import cryptocode
 import pyodbc
+import requests
 
-'''Retorna os cribs que estão atrasados a x tempo'''
+
 config = configparser.ConfigParser()
 config.read('config.ini')
 
-'''CNX DB - hom'''
-server_hom = config.get('dados_banco_hom', 'server')
-port_hom = config.get('dados_banco_hom', 'port')
-database_hom = config.get('dados_banco_hom', 'database')
-uid_hom = config.get('dados_banco_hom', 'uid')
-pwd_hom = config.get('dados_banco_hom', 'pwd')
 
-uid_hom = cryptocode.decrypt(uid_hom, "i9brgroup")
-pwd_hom = cryptocode.decrypt(pwd_hom, "i9brgroup")
+api_url_base = 'http://'+config.get('dados_api', 'server')+':'+config.get('dados_api', 'port') + '/'
 
 
-cnxn_hom = pyodbc.connect(
-        f'DRIVER=SQL Server;SERVER={server_hom};PORT={port_hom};DATABASE={database_hom};UID={uid_hom};PWD={pwd_hom};')
+loguin = {
+    "username": config.get('dados_api', 'uid'),
+    "password": config.get('dados_api', 'pwd'),
+    "method": "OAuth2PasswordBearer",
+}
 
-
-cursor_dev = cnxn_hom.cursor()
-
+token = requests.post(api_url_base + 'token', data=loguin)
+headers = {
+           "Authorization": "Bearer %s" % token.json()['access_token']
+}
 
 def deleta(siteid):
-    def trata_dados(dados):
-        data_dict = {}
-        for emp in dados:
-            data_dict[emp[0]] = emp[1]
-        return data_dict
+    def trata_dados(re):
+        if re.reason == 'OK':
+            bios = re.json()
+            data_dict = {}
+            for emp in bios['biometrics']:
+                print(emp)
+                if emp['FingerPrintTemplate']:
+                    data_dict[emp['ID']] = list(emp['FingerPrintTemplate'])
+                else:
+                    data_dict[emp['ID']] = None
+            return data_dict
 
 
     def deleta_template(id):
-        template_none = None
-        cursor_dev.execute(f'UPDATE EMPLOYEE SET "FingerPrintTemplate" = ? WHERE "ID" = ?', template_none, id)
-        cursor_dev.commit()
+        resp = requests.post(api_url_base + f'deletebio', params={'id': id}, headers=headers)
+        return resp
 
-
-    cursor_dev.execute(f"SELECT ID, FingerPrintTemplate FROM EMPLOYEE WHERE EmployeeSiteID = ?", siteid)
-    data = cursor_dev.fetchall()
-    data_dict = trata_dados(data)
+    data = {
+        'siteid': siteid
+    }
+    re = requests.get(api_url_base + 'employeebio', params=data, headers=headers)
+    data_dict = trata_dados(re)
 
     while True:
         id = input('Digite o id que deseja deletar ou 0 para retornar ao menu anterior: ')
@@ -60,7 +64,11 @@ def deleta(siteid):
                                 f'2 - NÃO\n')
 
                 if confirm == '1':
-                    deleta_template(id)
+                    resp = deleta_template(id)
+                    if resp.status_code == 200:
+                        print("Digital deletada com sucesso.")
+                    else:
+                        print("Não foi possivel deletar a digital, tente novamente.")
                 else:
                     print("Operação cancelada.\n")
             else:

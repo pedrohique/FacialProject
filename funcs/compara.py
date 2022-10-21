@@ -7,40 +7,46 @@ import json
 import configparser
 import cryptocode
 import pyodbc
+import requests
 
-'''Retorna os cribs que estão atrasados a x tempo'''
+
 config = configparser.ConfigParser()
 config.read('config.ini')
 
-'''CNX DB - hom'''
-server_hom = config.get('dados_banco_hom', 'server')
-port_hom = config.get('dados_banco_hom', 'port')
-database_hom = config.get('dados_banco_hom', 'database')
-uid_hom = config.get('dados_banco_hom', 'uid')
-pwd_hom = config.get('dados_banco_hom', 'pwd')
 
-uid_hom = cryptocode.decrypt(uid_hom, "i9brgroup")
-pwd_hom = cryptocode.decrypt(pwd_hom, "i9brgroup")
+api_url_base = 'http://'+config.get('dados_api', 'server')+':'+config.get('dados_api', 'port') + '/'
 
 
-cnxn_hom = pyodbc.connect(
-        f'DRIVER=SQL Server;SERVER={server_hom};PORT={port_hom};DATABASE={database_hom};UID={uid_hom};PWD={pwd_hom};')
+loguin = {
+    "username": config.get('dados_api', 'uid'),
+    "password": config.get('dados_api', 'pwd'),
+    "method": "OAuth2PasswordBearer",
+}
 
-
-cursor_dev = cnxn_hom.cursor()
-
+token = requests.post(api_url_base + 'token', data=loguin)
+headers = {
+           "Authorization": "Bearer %s" % token.json()['access_token']
+}
 
 def compara(finger, siteid):
 
-    def trata_dados(dados):
-        data_dict = {}
-        for emp in dados:
-            data_dict[emp[0]] = emp[1]
-        return data_dict
+    def trata_dados(re):
+        if re.reason == 'OK':
+            bios = re.json()
+            data_dict = {}
+            for emp in bios['biometrics']:
+                if emp['FingerPrintTemplate']:
+                    data_dict[emp['ID']] = emp['FingerPrintTemplate']
+                else:
+                    data_dict[emp['ID']] = None
+            return data_dict
 
-    cursor_dev.execute(f"SELECT ID, FingerPrintTemplate FROM EMPLOYEE WHERE EmployeeSiteID = ?", siteid)
-    data = cursor_dev.fetchall()
-    data_dict = trata_dados(data)
+    data = {
+        'siteid': siteid
+    }
+    re = requests.get(api_url_base + 'employeebio', params=data, headers=headers)
+    data_dict = trata_dados(re)
+
     def set_led_local(color=1, mode=3, speed=0x80, cycles=0):
         """this is to make sure LED doesn't interfer with example
         running on models without LED support - needs testing"""
@@ -52,29 +58,32 @@ def compara(finger, siteid):
     while True:
         key = input('Digite o ID do funcionario ou 0 para retornar ao menu anterior: ')
         if key in data_dict.keys():
-            print("Aguardando pela digital...")
-            set_led_local(color=3, mode=1)
-            while finger.get_image() != adafruit_fingerprint.OK:
-                pass
-            print("Analisando...")
-            if finger.image_2_tz(1) != adafruit_fingerprint.OK:
-                return False
+            if data_dict[key]:
+                print("Aguardando pela digital...")
+                set_led_local(color=3, mode=1)
+                while finger.get_image() != adafruit_fingerprint.OK:
+                    pass
+                print("Analisando...")
+                if finger.image_2_tz(1) != adafruit_fingerprint.OK:
+                    return False
 
-            finger.send_fpdata(list(data_dict[key]), "char", 2)
+                finger.send_fpdata(list(data_dict[key]), "char", 2)
 
-            i = finger.compare_templates()
+                i = finger.compare_templates()
 
-            if i == adafruit_fingerprint.OK:  # i==0
-                i = finger.finger_search()
-                set_led_local(color=2, speed=150, mode=6)
-                print(f"Digital localizada - Usuario: {key}.")
+                if i == adafruit_fingerprint.OK:  # i==0
+                    i = finger.finger_search()
+                    set_led_local(color=2, speed=150, mode=6)
+                    print(f"Digital localizada - Usuario: {key}.")
+                    break
+                if i == adafruit_fingerprint.NOMATCH:
+                    set_led_local(color=1, mode=2, speed=20, cycles=10)
+                    print(f"Digital não confere para o usuario: {key}")
+                else:
+                    print("Other error!")
+
                 break
-            if i == adafruit_fingerprint.NOMATCH:
-                set_led_local(color=1, mode=2, speed=20, cycles=10)
-                print(f"Digital não confere para o usuario: {key}")
             else:
-                print("Other error!")
-
-            break
+                print(f"Digital não cadastrada para o funcionario: {key}")
         else:
             print("Funcionario não cadastrado no sistema i9\n")
