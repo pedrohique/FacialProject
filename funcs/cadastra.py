@@ -5,8 +5,8 @@ import time
 import json
 
 import configparser
-import cryptocode
-import pyodbc
+# import cryptocode
+# import pyodbc
 import requests
 
 
@@ -14,7 +14,7 @@ config = configparser.ConfigParser()
 config.read('config.ini')
 
 
-api_url_base = 'http://'+config.get('dados_api', 'server')+':'+config.get('dados_api', 'port') + '/'
+api_url_base = 'https://'+config.get('dados_api', 'server')+':'+config.get('dados_api', 'port') + '/'
 
 
 loguin = {
@@ -23,7 +23,7 @@ loguin = {
     "method": "OAuth2PasswordBearer",
 }
 
-token = requests.post(api_url_base + 'token', data=loguin)
+token = requests.post(api_url_base + 'token', data=loguin, verify=False)
 headers = {
            "Authorization": "Bearer %s" % token.json()['access_token']
 }
@@ -52,7 +52,7 @@ def Cadastra(finger, siteid):
 
 
     def add_newdata(id, template):
-        resp = requests.post(api_url_base + f'atualizabio', params={'id': id}, json=template, headers=headers)
+        resp = requests.post(api_url_base + f'atualizabio', params={'id': id}, json=template, headers=headers, verify=False)
         return resp
 
 
@@ -60,7 +60,7 @@ def Cadastra(finger, siteid):
         data = {
             'siteid': siteid
         }
-        re = requests.get(api_url_base + 'employeebio', params=data, headers=headers)
+        re = requests.get(api_url_base + 'employeebio', params=data, headers=headers, verify=False)
         data_dict = trata_dados(re)
 
         set_led_local(color=3, mode=1)

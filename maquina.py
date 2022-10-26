@@ -5,7 +5,6 @@ import adafruit_fingerprint
 
 import configparser
 import cryptocode
-import pyodbc
 import requests
 
 
@@ -23,19 +22,19 @@ loguin = {
 }
 
 
-print('Tentando conexão com o leitor biometrico')
-#  Faz a conexão com o leitor biometrico
-uart = serial.Serial("ttyUSB1", baudrate=57600, timeout=1)
-finger = adafruit_fingerprint.Adafruit_Fingerprint(uart)
-print('Conexão -- OK')
-
-print('Tentando conexão com o Arduino')
-ser = serial.Serial()
-ser.port = "ttyUSB0"
-ser.baudrate = 9600
-
-ser.open()
-print('Coxexão -- OK')
+# print('Tentando conexão com o leitor biometrico')
+# #  Faz a conexão com o leitor biometrico
+# uart = serial.Serial("ttyUSB1", baudrate=57600, timeout=1)
+# finger = adafruit_fingerprint.Adafruit_Fingerprint(uart)
+# print('Conexão -- OK')
+#
+# print('Tentando conexão com o Arduino')
+# ser = serial.Serial()
+# ser.port = "ttyUSB0"
+# ser.baudrate = 9600
+#
+# ser.open()
+# print('Coxexão -- OK')
 
 
 def send_arduino(string):
@@ -44,7 +43,7 @@ def send_arduino(string):
 
 def atualiza_json(siteid):
 
-    token = requests.post(api_url_base + 'token', data=loguin)
+    token = requests.post(api_url_base + 'token', data=loguin, verify=False)
 
     headers = {
         "Authorization": "Bearer %s" % token.json()['access_token']
@@ -53,7 +52,7 @@ def atualiza_json(siteid):
         'siteid': siteid
     }
 
-    re = requests.get(api_url_base + 'employeebio', params=data, headers=headers)
+    re = requests.get(api_url_base + 'employeebio', params=data, headers=headers, verify=False)
 
     if re.reason == 'OK':
         bios = re.json()
