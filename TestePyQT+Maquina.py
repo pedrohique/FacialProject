@@ -150,15 +150,21 @@ class Janela(QWidget):
                         set_led_local(color=2, speed=150, mode=6)
 
 
+                        if data[key][2]:
+                            print(f"Acesso liberado - Usuario: {key}  Aguardando Atualização")
+                            print(data[key])
 
-                        print(f"Acesso liberado - Usuario: {key}  Aguardando Atualização")
 
-
-                        self.label_1.setStyleSheet(
-                            'QLabel {background-color: #f1f1f1; font:bold; font-size:20px; color: green}')
-                        self.label_1.setText(f"Acesso liberado - Usuario: {key} - Aguardando Atualização")
-                        time.sleep(1)
-                        self.atualiza_json()
+                            self.label_1.setStyleSheet(
+                                'QLabel {background-color: #f1f1f1; font:bold; font-size:20px; color: green}')
+                            self.label_1.setText(f"Acesso liberado - Usuario: {key} - Aguardando Atualização")
+                            time.sleep(1)
+                            self.atualiza_json()
+                        else:
+                            self.label_1.setStyleSheet(
+                                'QLabel {background-color: #f1f1f1; font:bold; font-size:20px; color: red}')
+                            self.label_1.setText(f"Acesso negado - Usuario: {key} -"
+                                                 f" Você não possui autorização para esta ação.")
 
 
                     elif i == adafruit_fingerprint.NOMATCH:
