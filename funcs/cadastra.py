@@ -135,7 +135,7 @@ def Cadastra(finger, siteid):
                 resp = add_newdata(id, data_new)
 
                 set_led_local(color=2, speed=150, mode=6)
-                print(resp.status_code)
+
                 if resp.status_code == 200:
                     print(f"Digital cadastrada com sucesso - Funcionario: {id}.\n")
                 else:
