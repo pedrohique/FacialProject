@@ -263,63 +263,67 @@ class Janela(QWidget):
                 print("INFO: Sensor les not support LED. Error:", str(exc))
 
         if key:
-            with open("template.json", "r") as file:
-                data = json.load(file)
-                if key in data.keys():
-                    if data[key][0]:
+            if key == "*/*":
+                self.atualiza_json()
 
-                        print("Aguardando pela digital...")
-                        self.label_2.setStyleSheet(self.Style('yellow'))
-                        self.label_2.setText("Aguardando pela digital")
+            else:
+                with open("template.json", "r") as file:
+                    data = json.load(file)
+                    if key in data.keys():
+                        if data[key][0]:
 
-                        set_led_local(color=3, mode=1)
-                        while finger.get_image() != adafruit_fingerprint.OK:
-                            pass
+                            print("Aguardando pela digital...")
+                            self.label_2.setStyleSheet(self.Style('yellow'))
+                            self.label_2.setText("Aguardando pela digital")
 
-                        print("Analisando...")
-                        self.label_2.setStyleSheet(self.Style('yellow'))
-                        self.label_2.setText("Analisando")
+                            set_led_local(color=3, mode=1)
+                            while finger.get_image() != adafruit_fingerprint.OK:
+                                pass
 
-                        if finger.image_2_tz(1) != adafruit_fingerprint.OK:
-                            pass
+                            print("Analisando...")
+                            self.label_2.setStyleSheet(self.Style('yellow'))
+                            self.label_2.setText("Analisando")
 
-                        finger.send_fpdata(data[key][0], "char", 2)
-                        i = finger.compare_templates()
+                            if finger.image_2_tz(1) != adafruit_fingerprint.OK:
+                                pass
+
+                            finger.send_fpdata(data[key][0], "char", 2)
+                            i = finger.compare_templates()
 
 
 
-                        if i == adafruit_fingerprint.OK:
-                            i = finger.finger_search()
-                            set_led_local(color=2, speed=150, mode=6)
-                            print(f"Acesso liberado - Usuario: {key} badge = {data[key][1]}.")
+                            if i == adafruit_fingerprint.OK:
+                                i = finger.finger_search()
+                                set_led_local(color=2, speed=150, mode=6)
+                                print(f"Acesso liberado - Usuario: {key} badge = {data[key][1]}.")
 
-                            self.label_1.setStyleSheet(self.Style('green'))
-                            self.label_1.setText(f"Acesso liberado - Usuario: {key} badge = {data[key][1]}.")
+                                self.label_1.setStyleSheet(self.Style('green'))
+                                self.label_1.setText(f"Acesso liberado - Usuario: {key} badge = {data[key][1]}.")
 
-                            # self.send_arduino(data[key][1])
+                                # self.send_arduino(data[key][1])
 
-                            self.caixa_texto.clear()
+                                self.caixa_texto.clear()
 
-                        elif i == adafruit_fingerprint.NOMATCH:
-                            set_led_local(color=1, mode=2, speed=20, cycles=10)
-                            print(f"Digital não confere para o usuario: {key}")
+                            elif i == adafruit_fingerprint.NOMATCH:
+                                set_led_local(color=1, mode=2, speed=20, cycles=10)
+                                print(f"Digital não confere para o usuario: {key}")
 
-                            self.label_1.setStyleSheet(self.Style('red'))
-                            self.label_1.setText(f"Digital não confere para o usuario: {key}")
+                                self.label_1.setStyleSheet(self.Style('red'))
+                                self.label_1.setText(f"Digital não confere para o usuario: {key}")
 
-                            # atualiza_json(siteid)  # pendente
+                                # atualiza_json(siteid)  # pendente
+                            else:
+                                print("Other error!")
+                                self.label_1.setStyleSheet(self.Style('red'))
+                                self.label_1.setText("Other error!")
                         else:
-                            print("Other error!")
+                            print('Digital não cadastrada.')
                             self.label_1.setStyleSheet(self.Style('red'))
-                            self.label_1.setText("Other error!")
+                            self.label_1.setText('Digital não cadastrada.')
                     else:
-                        print('Digital não cadastrada.')
+                        print('Usuario não cadastrado no sistema i9 procure um administrador')
                         self.label_1.setStyleSheet(self.Style('red'))
-                        self.label_1.setText('Digital não cadastrada.')
-                else:
-                    print('Usuario não cadastrado no sistema i9 procure um administrador')
-                    self.label_1.setStyleSheet(self.Style('red'))
-                    self.label_1.setText('Usuario não cadastrado no sistema i9 procure um administrador')
+                        self.label_1.setText('Usuario não cadastrado no sistema i9 procure um administrador')
 
 
 
