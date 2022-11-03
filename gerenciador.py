@@ -5,11 +5,24 @@ import serial
 import adafruit_fingerprint
 
 import funcs
+import os
+import subprocess
 
+dir = os.listdir('/dev/')
 
-#  Faz a conexão com o leitor biometrico
-uart = serial.Serial("COM4", baudrate=57600, timeout=1)
-finger = adafruit_fingerprint.Adafruit_Fingerprint(uart)
+for i in dir:
+    if i.startswith('ttyUSB'):
+        # try:
+            print('Tentando conexão com o leitor biometrico')
+            #  Faz a conexão com o leitor biometrico
+            print('sudo cat /dev/' + i, 'r')
+            # resp = os.system('sudo chmod 777 /dev/' + i)
+            uart = serial.Serial("/dev/" + i, baudrate=57600, timeout=1)  # /dev/ttyUSB0  -- COM4
+            finger = adafruit_fingerprint.Adafruit_Fingerprint(uart)
+            print('Conexão -- OK')
+        # except:
+            # pass
+
 
 siteid = 'DEFAULT'
 
@@ -28,4 +41,3 @@ while True:
 
     elif opcao == '3':
         funcs.exclui.deleta(siteid)
-
