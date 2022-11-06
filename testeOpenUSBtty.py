@@ -3,13 +3,11 @@ import sys
 import usb.core
 # find USB devices
 dev = usb.core.find(find_all=True)
-# loop through devices, printing vendor and product ids in decimal and hex
-# foo = dev.
-# foo = usb.util.get_string()
 
-# for cfg in dev:
-#     cfg.set_configuration()
-#     print(cfg.serial_number)
+
+for cfg in dev:
+    #cfg.set_configuration()
+    print(cfg.product)
     # langid = 0x????
     # foo = cfg.serial_number
     # foo = usb.util.get_string(cfg, cfg.iSerialNumber)
@@ -46,10 +44,10 @@ dev = usb.core.find(find_all=True)
 # print(devices)
 #
 
-import os
-
-dir = os.listdir('/dev/')
-
-for i in dir:
-    if i.startswith('ttyUSB'):
-        print(i)
+# import os
+#
+# dir = os.listdir('/dev/')
+#
+# for i in dir:
+#     if i.startswith('ttyUSB'):
+#         print(i)

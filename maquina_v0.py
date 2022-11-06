@@ -32,26 +32,30 @@ loguin = {
     "method": "OAuth2PasswordBearer",
 }
 
+print(os.name)
 
 siteid = 'DEFAULT'
 
 
-dir = os.listdir('/dev/')
-# while True:
-for i in dir:
-    if i.startswith('ttyUSB'):
-        try:
-            print('Tentando conexão com o leitor biometrico')
-            #  Faz a conexão com o leitor biometrico
-            os.system('sudo chmod a+rw /dev/' + i)  # só funciona quando executado no cmd
-            uart = serial.Serial(f"/dev/{i}", baudrate=57600, timeout=1)  # /dev/ttyUSB0  -- COM4
-            finger = adafruit_fingerprint.Adafruit_Fingerprint(uart)
-            print('Conexão -- OK')
-            break
-        except:
+#dir = os.listdir('/dev/')
 
-            print("Leitor Biometrico não encontrado...")
-            pass
+# for i in dir:
+#     if i.startswith('ttyUSB'):
+#         try:
+#             print('Tentando conexão com o leitor biometrico')
+#             #  Faz a conexão com o leitor biometrico
+#             os.system('sudo chmod a+rw /dev/' + i)  # só funciona quando executado no cmd
+#             uart = serial.Serial(f"/dev/{i}", baudrate=57600, timeout=1)  # /dev/ttyUSB0  -- COM4
+#             finger = adafruit_fingerprint.Adafruit_Fingerprint(uart)
+#             print('Conexão -- OK')
+#             break
+#         except:
+#
+#             print("Leitor Biometrico não encontrado...")
+#             pass
+
+uart = serial.Serial(f"COM4", baudrate=57600, timeout=1)  # /dev/ttyUSB0  -- COM4
+finger = adafruit_fingerprint.Adafruit_Fingerprint(uart)
 
 # print('Tentando conexão com o Arduino')
 # ser = serial.Serial()
