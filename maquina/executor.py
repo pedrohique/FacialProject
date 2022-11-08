@@ -8,10 +8,10 @@ import os
 
 
 config = configparser.ConfigParser()
-config.read('config2.ini')
+config.read('config.ini')
 
 
-api_url_base = 'http://'+config.get('dados_api', 'server')+':'+config.get('dados_api', 'port') + '/'
+api_url_base = 'https://'+config.get('dados_api', 'server')+':'+config.get('dados_api', 'port') + '/'
 
 dir_local = os.getcwd()
 
@@ -23,6 +23,7 @@ loguin = {
 
 
 def download_version(site, ver):
+    print(api_url_base + 'token')
     token = requests.post(api_url_base + 'token', data=loguin, verify=False)
 
     headers = {
@@ -34,41 +35,43 @@ def download_version(site, ver):
     }
 
     res = requests.get(api_url_base + 'getversion', params=data, headers=headers, verify=False)
-
+    print(res.reason)
     if res.text == '{"versao":"OK"}':
-        file = dir_local + '\\version\\maquina_' + version + '.py'
+        file = dir_local + '/version/maquina_' + version + '.py'
         print('Não há atualizações disponiveis, abrindo sistema.')
         return file
     else:
         print('Atualização disponivel, baixando arquivos')
-        file = dir_local + '\\version\\maquina_' + version + '.py'
+        file = dir_local + '/version/maquina_' + version + '.py'
         os.remove(file)
         d = res.headers['content-disposition']
         fname = (re.findall("filename=(.+)", d)[0]).replace('"', '')
         pasta = 'version'
         print('Criando arquivo')
-        open(dir_local + '\\' + pasta + '\\' + fname, "wb").write(res.content)
-        file = dir_local + '\\' + pasta + '\\' + fname
+        open(dir_local + '/' + pasta + '/' + fname, "wb").write(res.content)
+        file = dir_local + '/' + pasta + '/' + fname
         print('Atualização efetuada com sucesso.')
 
         return file
 
 
 def get_version():
-    for i in glob.glob(dir_local + '\\version\\maquina_*'):
+    for i in glob.glob(dir_local + '/version//maquina_*'):
+        print(i)
         versao = i.replace('.py', '')
-        versao = str(versao.split('\\')[-1]).replace('maquina_', '')
+        versao = str(versao.split('/')[-1]).replace('maquina_', '')
 
         return versao
 
 
-while True:
-    siteid = 'DEFAULT'
-    print('Buscando atualizações')
-    version = get_version()
-    arquivo = download_version(siteid, version)
-    print('Abrindo sistema.')
-    exec(open(arquivo).read())
+# while True:
+siteid = 'DEFAULT'
+print('Buscando atualizações')
+version = get_version()
+print(version)
+arquivo = download_version(siteid, version)
+print('Abrindo sistema.')
+exec(open(arquivo).read())
 
 
 
