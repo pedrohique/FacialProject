@@ -24,7 +24,7 @@ import subprocess
             # pass
 
 
-uart = serial.Serial(f"COM4", baudrate=57600, timeout=1)  # /dev/ttyUSB0  -- COM4
+uart = serial.Serial(f"COM3", baudrate=57600, timeout=1)  # /dev/ttyUSB0  -- COM4
 finger = adafruit_fingerprint.Adafruit_Fingerprint(uart)
 
 
