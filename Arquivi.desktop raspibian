@@ -1,0 +1,6 @@
+[Desktop Entry]
+Name=biometria
+Comment=Your comment
+Type=Application
+Exec=lxterminal -e bash -c "/usr/bin/python /home/i9/BiometriaProject/maquina/executor.py;bash"
+Terminal=true
