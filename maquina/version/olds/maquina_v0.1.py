@@ -14,7 +14,7 @@ import adafruit_fingerprint
 import configparser
 import logging
 
-dir_local = '/home/pedro/BiometriaProject/maquina/'
+dir_local = '/maquina/'
 
 
 logging.basicConfig(filename= dir_local + '/logs/biometria.log', level=logging.DEBUG, filemode='a+',

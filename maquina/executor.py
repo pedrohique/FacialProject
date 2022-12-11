@@ -5,9 +5,11 @@ import time
 import requests
 import re
 
-import os
-
 import logging
+
+from wifi import *
+import subprocess
+import os
 
 
 dir_local = '/home/pedro/BiometriaProject/maquina/'
@@ -56,6 +58,8 @@ def verifica_config(name_config):
 
 
 def download_version(site, ver, dir_local, api_url_base, loguin):
+        if not ver:
+            ver = '1.0'
         def conect_version():
             '''Essa funcao faz a conexao com a api para obter a versao.'''
             try:
@@ -107,12 +111,12 @@ def download_version(site, ver, dir_local, api_url_base, loguin):
             else:
                 print('Atualização disponivel, baixando arquivos')
                 logging.info('Atualização disponivel, baixando arquivos')
-
-
-                old_file = dir_local + 'version/maquina_' + version + '.py'
-                if old_file:
-                    logging.info('Deletando versao antiga.')
-                    os.remove(old_file)
+                if version:
+                    print(dir_local , 'version/maquina_' , version , '.py')
+                    old_file = dir_local + 'version/maquina_' + version + '.py'
+                    if old_file:
+                        logging.info('Deletando versao antiga.')
+                        os.remove(old_file)
                 else:
                     logging.warning('Nao foi encontrado arquivo antigo.')
 
@@ -151,12 +155,8 @@ def get_version(dir_local):
         logging.error(e)
 
 
-# while True:
-    # siteid = 'DEFAULT'
-    # print('Buscando atualizações')
-# dir_local = os.getcwd()
 
-print(dir_local + 'config.ini')
+# print(dir_local + 'config.ini')
 '''Verificando config file'''
 
 # Buscando dados de login
@@ -193,6 +193,83 @@ try:
 except OSError as e:
     logging.error(e)
 
+def login_wifi():
+    returned_value = subprocess.check_output('ip a | grep -i BROADCAST | cut -d: -f 2 ', shell=True)
+    returned = returned_value.decode("utf-8").split('\n')
+    dict_redes = {}
+    tipo_certo = None
+
+    def CreateWifiConfig(SSID, password):  # raspiberry
+        # setting up file contents
+        config_lines = [
+            'ctrl_interface=DIR=/var/run/wpa_supplicant GROUP=netdev',
+            'update_config=1',
+            'country=US',
+            '\n',
+            'network={',
+            '\tssid="{}"'.format(SSID),
+            '\tpsk="{}"'.format(password),
+            '}'
+        ]
+        config = '\n'.join(config_lines)
+
+        # display additions
+        # print(config)
+
+        # give access and writing. may have to do this manually beforehand
+        # os.system('sudo chmod a+rw /etc/wpa_supplicant/wpa_supplicant.conf')
+        os.system('sudo chmod a+rw teste.conf')
+
+        # writing to file
+        # with open("/etc/wpa_supplicant/wpa_supplicant.conf", "w") as wifi:
+        with open("teste.conf", "w") as wifi:
+            wifi.write(config)
+
+        # displaying success
+        print("wifi config added")
+
+
+
+
+    #print(tipo_certo, dict_redes[int(escolha)]['nome_rede'], cell, senha)
+
+    for i in returned:
+        tipo = i.replace(' ', '')
+        try:
+            cells = Cell.all(tipo)
+            for id, cell in enumerate(cells):
+                dict_redes[id] = {'nome_rede': cell.ssid, 'potencia': cell.signal}
+            tipo_certo = tipo
+        except Exception as e:
+            logging.warning(e)
+
+    if dict_redes and tipo_certo:
+        print('Selecione o numero da rede: ')
+        for i in dict_redes:
+            print(i, ' - ', dict_redes[i]['nome_rede'], ' - Potencia: ', (100 + dict_redes[i]['potencia']))
+
+        logging.info('Redes encontradas, solicitando login ao usuario.')
+
+        escolha = int(input('Digite o numero da rede: '))
+        senha = input('Digite sua senha: ')
+        rede_escolhida = dict_redes[int(escolha)]['nome_rede']
+        cells = Cell.all(tipo_certo)
+        for i in cells:
+            if i.ssid == rede_escolhida:
+                logging.info('Rede encontrada criando arquivo de configuração.')
+                CreateWifiConfig(rede_escolhida, senha)
+                logging.info('Arquivo encontrado, reiniciando o sistema.')
+                print('Rede configurada com sucesso. Reiniciando o sistema.')
+                time.sleep(3)
+                os.popen("sudo reboot")
+    else:
+        logging.error('Nenhuma rede encontrada, reiniciando o sistema.')
+        print('Não foi encontrada nenhuma rede wifi. Reiniciando o sistema em alguns segundos.')
+        time.sleep(3)
+
+
+
+
 
 try:
     while True:
@@ -200,29 +277,60 @@ try:
         print('Buscando versao atual')
         version = get_version(dir_local)
         if version:
-            logging.info('Verificando versao disponivel.')
-            print('Verificando versão disponivel.')
+            logging.info('Verificando atualizações disponiveis.')
+            print('Verificando atualizações disponiveis.')
             if siteid and version and dir_local and api_url_base and loguin:
                 arquivo = download_version(siteid, version, dir_local, api_url_base, loguin)
                 if arquivo:
-                    print(arquivo)
                     print('Abrindo sistema.')
                     logging.info(f'Abrindo sistema -- {arquivo}')
                     exec(open(arquivo).read())
                 else:
-                    logging.warning('Nao foi possivel realizar a verificacao de versao -- variaveis ausentes.')
-                    logging.warning('Tentando abrir arquivo padrão.')
-                    arquivo_padrao = dir_local + 'version/maquina_' + version + '.py'
-                    print(arquivo_padrao)
-                    exec(open(arquivo_padrao).read())
+                    logging.warning('Nao foi possivel realizar a verificacao de atualização '
+                                    '-- Sem conexão com a internet.')
+                    print('Nao foi possivel realizar a verificacao de atualização -- Sem conexão com a internet.')
+                    resp = input('Deseja se conextar a uma rede WIFI?\n'
+                                 '[1] - SIM\n'
+                                 '[2] - NÃO\n')
+
+                    if resp == '1':
+                        login_wifi()
+
+                    else:
+                        logging.warning('Tentando abrir arquivo padrão.')
+                        arquivo_padrao = dir_local + 'version/maquina_' + version + '.py'
+                        exec(open(arquivo_padrao).read())
 
 
             else:
                 logging.warning('Nao foi possivel realizar a verificacao de versao -- variaveis ausentes.')
+                print('Nao foi possivel realizar a verificacao de versao -- variaveis ausentes.')
                 logging.warning('Tentando abrir arquivo padrão.')
                 arquivo_padrao = dir_local + 'version/maquina_' + version + '.py'
-                print(arquivo_padrao)
                 exec(open(arquivo_padrao).read())
+        else:
+            logging.warning('Arquivo executor não encontrado, tentando conexão com a internet.')
+            print('Seu sistema esta corrompido, tentando download da versão correta.')
+            if siteid and dir_local and api_url_base and loguin:
+                arquivo = download_version(siteid, version, dir_local, api_url_base, loguin)
+                if arquivo:
+                    print('Abrindo sistema.')
+                    logging.info(f'Abrindo sistema -- {arquivo}')
+                    exec(open(arquivo).read())
+                else:
+                    logging.warning('Não foi possivel realizar a conexão com o servidor.')
+                    print('Não foi possivel realizar a conexão com o servidor.')
+                    resp = input('Deseja se conextar a uma rede WIFI?\n'
+                                 '[1] - SIM\n'
+                                 '[2] - NÃO\n')
+                    if resp == '1':
+                        logging.info('Tentando conexão WIFI.')
+                        login_wifi()
+
+                    else:
+                        print('Não foi possivel atualizar seu sistema, tentando execução novamente.')
+                        time.sleep(3)
+                        pass
 
 
 
