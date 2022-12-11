@@ -217,12 +217,12 @@ def login_wifi():
         # print(config)
 
         # give access and writing. may have to do this manually beforehand
-        # os.system('sudo chmod a+rw /etc/wpa_supplicant/wpa_supplicant.conf')
-        os.system('sudo chmod a+rw teste.conf')
+        os.system('sudo chmod a+rw /etc/wpa_supplicant/wpa_supplicant.conf')
+        # os.system('sudo chmod a+rw teste.conf')
 
         # writing to file
-        # with open("/etc/wpa_supplicant/wpa_supplicant.conf", "w") as wifi:
-        with open("teste.conf", "w") as wifi:
+        with open("/etc/wpa_supplicant/wpa_supplicant.conf", "w") as wifi:
+        # with open("teste.conf", "w") as wifi:
             wifi.write(config)
 
         # displaying success
