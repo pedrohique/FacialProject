@@ -15,12 +15,7 @@ import adafruit_fingerprint
 import configparser
 import logging
 
-import pyautogui
 
-from pynput.keyboard import Key, Controller
-
-
-from funcs.teclado import KeyBoard
 dir_local = '/home/pedro/BiometriaProject/maquina/'
 
 
@@ -192,12 +187,44 @@ LUT = {
     "b": QtCore.Qt.Key_B,
     "n": QtCore.Qt.Key_N,
     "m": QtCore.Qt.Key_M,
+
+    "Q": QtCore.Qt.Key_Q,
+    "W": QtCore.Qt.Key_W,
+    "E": QtCore.Qt.Key_E,
+    "R": QtCore.Qt.Key_R,
+    "T": QtCore.Qt.Key_T,
+    "Y": QtCore.Qt.Key_Y,
+    "U": QtCore.Qt.Key_U,
+    "I": QtCore.Qt.Key_I,
+    "O": QtCore.Qt.Key_O,
+    "P": QtCore.Qt.Key_P,
+    "'": QtCore.Qt.Key_Apostrophe,
+
+    "A": QtCore.Qt.Key_A,
+    "S": QtCore.Qt.Key_S,
+    "D": QtCore.Qt.Key_D,
+    "F": QtCore.Qt.Key_F,
+    "G": QtCore.Qt.Key_G,
+    "H": QtCore.Qt.Key_H,
+    "J": QtCore.Qt.Key_J,
+    "K": QtCore.Qt.Key_K,
+    "L": QtCore.Qt.Key_L,
+
+    "Z": QtCore.Qt.Key_Z,
+    "X": QtCore.Qt.Key_X,
+    "C": QtCore.Qt.Key_C,
+    "V": QtCore.Qt.Key_V,
+    "B": QtCore.Qt.Key_B,
+    "N": QtCore.Qt.Key_N,
+    "M": QtCore.Qt.Key_M,
+
     ".": QtCore.Qt.Key_Period,
 
     "Del": QtCore.Qt.Key_Delete,
     "Shift": QtCore.Qt.Key_Shift,
     "Enter": QtCore.Qt.Key_Enter,
     "Space": QtCore.Qt.Key_Space,
+    "Caps": QtCore.Qt.Key_CapsLock,
 }
 
 
@@ -252,6 +279,7 @@ class Janela(QMainWindow):
         self.caixa_texto = QLineEdit(self)
         self.caixa_texto.resize(500, 300)   # Largura x Altura
         self.caixa_texto.setStyleSheet('padding :15px')
+        self.caps = False
 
 
         self.caixa_texto.mousePressEvent = self.click_caixa_texto
@@ -288,34 +316,46 @@ class Janela(QMainWindow):
 
         self.key = ''
 
-        """ inicia Janela principal """
-        logging.info('iniciando interface')
-        self.CarregarJanela()  # Inicia a Tela
-
-        self.AtualizaJson()  # Atualiza o Json na abertura do programa
-
-
-    def click_caixa_texto(self, mouseEvent):
-        self.ImprimeLabel1('caixa de texto clicada')
-        self.keyboard()
-
-        #keyboard = KeyBoard()
-        # self.teclado = self.cria_teclado()
-
-
-    def keyboard(self):
-        letters = (LETTERS1, LETTERS2, LETTERS3)
-        print(letters)
-        numbers = NUMBERS + ".'"
-        print(numbers)
         self.grid_layout = QtWidgets.QGridLayout(self)
         self.fileira_1 = QHBoxLayout()
         self.fileira_2 = QHBoxLayout()
         self.fileira_3 = QHBoxLayout()
         self.numbers_layout = QHBoxLayout()
-        print(enumerate(zip(*letters)))
+        self.frame = QtWidgets.QFrame()
+
+
+
+        """ inicia Janela principal """
+        logging.info('iniciando interface')
+        self.CarregarJanela()  # Inicia a Tela
+
+        self.AtualizaJson()  # Atualiza o Json na abertura do programa
+        self.keyboard()
+
+
+
+
+    def click_caixa_texto(self, mouseEvent):
+        self.ImprimeLabel1('caixa de texto clicada')
+        self.frame.show()
+
+
+
+    def keyboard(self):
+        letters = (LETTERS1, LETTERS2, LETTERS3)
+
+        numbers = NUMBERS + ".'"
+        self.grid_layout = QtWidgets.QGridLayout(self)
+        self.fileira_1 = QHBoxLayout()
+        self.fileira_2 = QHBoxLayout()
+        self.fileira_3 = QHBoxLayout()
+        self.numbers_layout = QHBoxLayout()
+        self.frame = QtWidgets.QFrame()
+
         for i, letter in enumerate(LETTERS1):
             j = 1
+            if self.caps:
+                letter = letter.upper()
             print(letter, j, i)
             button = QtWidgets.QToolButton(
                 text=letter,
@@ -329,6 +369,8 @@ class Janela(QMainWindow):
         for i, letter in enumerate(LETTERS2):
             j = 2
             print(letter, j, i)
+            if self.caps:
+                letter = letter.upper()
             button = QtWidgets.QToolButton(
                 text=letter,
                 clicked=self.onClicked,
@@ -338,10 +380,11 @@ class Janela(QMainWindow):
             self.fileira_2.addWidget(button, 2)
         self.grid_layout.addLayout(self.fileira_2, 2, 0, 1, 11, alignment=QtCore.Qt.AlignCenter)
 
-
         for i, letter in enumerate(LETTERS3):
             j = 3
             print(letter, j, i)
+            if self.caps:
+                letter = letter.upper()
             button = QtWidgets.QToolButton(
                 text=letter,
                 clicked=self.onClicked,
@@ -371,23 +414,16 @@ class Janela(QMainWindow):
             self.grid_layout.addWidget(button, i, 11)
 
         button = QtWidgets.QToolButton(
-            text="Enter", clicked=self.onClicked, focusPolicy=QtCore.Qt.NoFocus
+            text="Caps", clicked=self.onClicked, focusPolicy=QtCore.Qt.NoFocus
         )
         button.setFixedSize(90, 70)
         self.grid_layout.addWidget(button, 3, 11)  #, 1, 2
 
-        # button = QtWidgets.QToolButton(
-        #     text="Space", clicked=self.onClicked, focusPolicy=QtCore.Qt.NoFocus
-        # )
-        # button.setFixedSize(500, 70)
-        # self.grid_layout.addWidget(
-        #     button, 4, 0, 1, 7, alignment=QtCore.Qt.AlignCenter
-        # )
-        # self.setFixedSize(self.sizeHint())
-        #
-        # self.grid_layout.setContentsMargins(50, 50, 50, 50)
-        # self.grid_layout.setSpacing(1)
-        self.grid.addLayout(self.grid_layout, 4, 0,  alignment=QtCore.Qt.AlignHCenter)
+        self.frame.setLayout(self.grid_layout)
+
+        self.grid.addWidget(self.frame, 4, 0,  alignment=QtCore.Qt.AlignHCenter)
+        self.frame.hide()
+
 
     @QtCore.pyqtSlot()
     def onClicked(self):
@@ -397,18 +433,42 @@ class Janela(QMainWindow):
         widget = QtWidgets.QApplication.focusWidget()
 
         text = button.text()
+
+
         key = LUT[text]
-        if text in ("Del", "Shift", "Enter", "Space"):
+        if self.caps:
+            text = text.upper()
+        if text in ("Del", "Shift", "Enter", "Space", "Caps", "CAPS"):
             if text in ("Shift", "Enter"):
                 text = ""
             elif text == "Space":
                 text = " "
             elif text == "Del":
                 text = chr(0x7F)
+
+
+            elif text == "Caps":
+                self.caps = True
+                self.frame.close()
+                self.keyboard()
+                self.frame.show()
+                text = ''
+            elif text == 'CAPS':
+                self.caps = False
+                self.frame.close()
+                self.keyboard()
+                self.frame.show()
+                text = ''
+
+
+
         event = QtGui.QKeyEvent(
             QtCore.QEvent.KeyPress, key, QtCore.Qt.NoModifier, text
         )
         QtCore.QCoreApplication.postEvent(widget, event)
+
+    def remove_teclado(self):
+        self.frame.hide()
 
     def AtualizaJson(self):
         logging.info('Atualizando Json com biometrias')
@@ -489,15 +549,18 @@ class Janela(QMainWindow):
                     if self.data[self.key][0]:
                         self.ImprimeLabel1('Coloque sua DIGITAL.')
                         self.timer_busca.start(1)
+                        self.remove_teclado()
                     else:
                         # print('Digital não cadastrada.')
                         self.ImprimeLabel1('Digital não cadastrada.', 'red')
                         self.caixa_texto.clear()
+                        self.remove_teclado()
                 else:
                     # print('Usuario não cadastrado no sistema i9 procure um administrador')
                     self.ImprimeLabel1('Usuario não cadastrado no sistema i9,'
                                        '\n procure um administrador', 'red')
                     self.caixa_texto.clear()
+
 
     def ValidaDigital(self):
         def set_led_local(color=1, mode=3, speed=0x80, cycles=0):
@@ -549,7 +612,7 @@ class Janela(QMainWindow):
 
     def LimpaCampo(self):
         self.caixa_texto.clear()
-        #self.grid.removeItem(self.grid_layout)
+        self.remove_teclado()
 
     def LimpaLabel(self):
         self.ImprimeLabel1('Digite seu id no campo a cima\n e pressione ENTER.')
@@ -562,8 +625,6 @@ class Janela(QMainWindow):
         self.timer_limpa.start(2500)
 
     def CarregarJanela(self):
-        # self.setGeometry(self.esquerda, self.topo, self.largura, self.altura)
-        # self.setWindowTitle(self.titulo)
         self.showFullScreen()
         self.show()
 
