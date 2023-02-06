@@ -1,11 +1,12 @@
-import time
-
 from PyQt5 import QtCore
 from PyQt5.QtWidgets import QApplication, QMainWindow, QPushButton, QLabel, QLineEdit, QWidget, QHBoxLayout, QFormLayout, QGridLayout
 from PyQt5.QtGui import QPixmap
 from PyQt5.QtCore import QTimer
 import sys
 import os
+from PyQt5 import QtCore, QtGui, QtWidgets
+
+os.environ["QT_IM_MODULE"] = "qtvirtualkeyboard"
 
 import requests
 import json
@@ -14,6 +15,12 @@ import adafruit_fingerprint
 import configparser
 import logging
 
+import pyautogui
+
+from pynput.keyboard import Key, Controller
+
+
+from funcs.teclado import KeyBoard
 dir_local = '/home/pedro/BiometriaProject/maquina/'
 
 
@@ -106,37 +113,92 @@ def busca_arduino(dir_linux):
 
 logging.info('Buscando dispositivos.')
 logging.info('Tentando conexão com o leitor biometrico')
-while True:
-    try:
-        # logging.info('Buscando dispositivos conectados')
-        dir_linux = os.listdir('/dev/')
-        finger = busca_sensor(dir_linux)
-        if finger:
-            break
-        time.sleep(1)
-    except OSError as e:
-        print(e)
-        logging.error(e)
-        pass
-    except RuntimeError as run_err:
-        print(run_err)
-        logging.error(run_err)
-        pass
+# while True:
+#     try:
+#         # logging.info('Buscando dispositivos conectados')
+#         dir_linux = os.listdir('/dev/')
+#         finger = busca_sensor(dir_linux)
+#         if finger:
+#             break
+#         time.sleep(1)
+#     except OSError as e:
+#         print(e)
+#         logging.error(e)
+#         pass
+#     except RuntimeError as run_err:
+#         print(run_err)
+#         logging.error(run_err)
+#         pass
+#
+# logging.info('Tentando conexão com o arduino')
+# while True:
+#     try:
+#         dir_linux = os.listdir('/dev/')
+#         ser = busca_arduino(dir_linux)
+#         if ser:
+#             break
+#         time.sleep(1)
+#     except OSError as e:
+#         logging.error(e)
+#         pass
+#     except RuntimeError as run_err:
+#         logging.error(run_err)
+#         pass
 
-logging.info('Tentando conexão com o arduino')
-while True:
-    try:
-        dir_linux = os.listdir('/dev/')
-        ser = busca_arduino(dir_linux)
-        if ser:
-            break
-        time.sleep(1)
-    except OSError as e:
-        logging.error(e)
-        pass
-    except RuntimeError as run_err:
-        logging.error(run_err)
-        pass
+
+LETTERS1 = "qwertyuiop"
+LETTERS2 = "asdfghjkl"
+LETTERS3 = "zxcvbnm"
+NUMBERS = "1234567890"
+LUT = {
+    "1": QtCore.Qt.Key_1,
+    "2": QtCore.Qt.Key_2,
+    "3": QtCore.Qt.Key_3,
+    "4": QtCore.Qt.Key_4,
+    "5": QtCore.Qt.Key_5,
+    "6": QtCore.Qt.Key_6,
+    "7": QtCore.Qt.Key_7,
+    "8": QtCore.Qt.Key_8,
+    "9": QtCore.Qt.Key_9,
+    "0": QtCore.Qt.Key_0,
+
+    "q": QtCore.Qt.Key_Q,
+    "w": QtCore.Qt.Key_W,
+    "e": QtCore.Qt.Key_E,
+    "r": QtCore.Qt.Key_R,
+    "t": QtCore.Qt.Key_T,
+    "y": QtCore.Qt.Key_Y,
+    "u": QtCore.Qt.Key_U,
+    "i": QtCore.Qt.Key_I,
+    "o": QtCore.Qt.Key_O,
+    "p": QtCore.Qt.Key_P,
+    "p": QtCore.Qt.Key_P,
+    "'": QtCore.Qt.Key_Apostrophe,
+
+    "a": QtCore.Qt.Key_A,
+    "s": QtCore.Qt.Key_S,
+    "d": QtCore.Qt.Key_D,
+    "f": QtCore.Qt.Key_F,
+    "g": QtCore.Qt.Key_G,
+    "h": QtCore.Qt.Key_H,
+    "j": QtCore.Qt.Key_J,
+    "k": QtCore.Qt.Key_K,
+    "l": QtCore.Qt.Key_L,
+
+    "z": QtCore.Qt.Key_Z,
+    "x": QtCore.Qt.Key_X,
+    "c": QtCore.Qt.Key_C,
+    "v": QtCore.Qt.Key_V,
+    "b": QtCore.Qt.Key_B,
+    "n": QtCore.Qt.Key_N,
+    "m": QtCore.Qt.Key_M,
+    ".": QtCore.Qt.Key_Period,
+
+    "Del": QtCore.Qt.Key_Delete,
+    "Shift": QtCore.Qt.Key_Shift,
+    "Enter": QtCore.Qt.Key_Enter,
+    "Space": QtCore.Qt.Key_Space,
+}
 
 
 
@@ -145,18 +207,17 @@ def StyleLabel(cor='black'):
     command = "QLabel {background-color: #f1f1f1; font:bold; font-size:20px; color:"+cor+"; text-align:center; padding :15px}"
     return command
 
-
 class Janela(QMainWindow):
-    def __init__(self):
-        super().__init__()
+    def __init__(self, parent=None):
+        super().__init__(parent)
 
         layout = QFormLayout()
-        layout_butons = QHBoxLayout()
-        grid = QGridLayout()
+        self.layout_butons = QHBoxLayout()
+        self.grid = QGridLayout()
 
         widget = QWidget()
 
-        widget.setLayout(grid)
+        widget.setLayout(self.grid)
 
         """ Botãoes """
 
@@ -192,6 +253,9 @@ class Janela(QMainWindow):
         self.caixa_texto.resize(500, 300)   # Largura x Altura
         self.caixa_texto.setStyleSheet('padding :15px')
 
+
+        self.caixa_texto.mousePressEvent = self.click_caixa_texto
+
         # codigo abaixo altera o tamanho da fonte
         self.fonte = self.caixa_texto.font()
         self.fonte.setPointSize(50)
@@ -202,16 +266,17 @@ class Janela(QMainWindow):
 
         """ Layouts """
 
-        grid.addWidget(self.label_image, 0, 0)
+        self.grid.addWidget(self.label_image, 0, 0)
         layout.addRow(self.caixa_texto)
-        grid.addWidget(self.label_1, 2, 0)
-        layout_butons.addWidget(self.ok_but, 0)
-        layout_butons.addWidget(self.limpar, 0)
-        grid.addLayout(layout, 1, 0)
-        grid.addLayout(layout_butons, 3, 0)
+        self.grid.addWidget(self.label_1, 2, 0)
+        self.layout_butons.addWidget(self.ok_but, 2)
+        self.layout_butons.addWidget(self.limpar, 2)
 
-        grid.setContentsMargins(50, 50, 50, 50)
-        grid.setSpacing(10)
+        self.grid.addLayout(layout, 1, 0)
+        self.grid.addLayout(self.layout_butons, 3, 0)
+
+        self.grid.setContentsMargins(50, 50, 50, 50)
+        self.grid.setSpacing(10)
         self.setCentralWidget(widget)
 
         """ Timers """
@@ -229,6 +294,121 @@ class Janela(QMainWindow):
 
         self.AtualizaJson()  # Atualiza o Json na abertura do programa
 
+
+    def click_caixa_texto(self, mouseEvent):
+        self.ImprimeLabel1('caixa de texto clicada')
+        self.keyboard()
+
+        #keyboard = KeyBoard()
+        # self.teclado = self.cria_teclado()
+
+
+    def keyboard(self):
+        letters = (LETTERS1, LETTERS2, LETTERS3)
+        print(letters)
+        numbers = NUMBERS + ".'"
+        print(numbers)
+        self.grid_layout = QtWidgets.QGridLayout(self)
+        self.fileira_1 = QHBoxLayout()
+        self.fileira_2 = QHBoxLayout()
+        self.fileira_3 = QHBoxLayout()
+        self.numbers_layout = QHBoxLayout()
+        print(enumerate(zip(*letters)))
+        for i, letter in enumerate(LETTERS1):
+            j = 1
+            print(letter, j, i)
+            button = QtWidgets.QToolButton(
+                text=letter,
+                clicked=self.onClicked,
+                focusPolicy=QtCore.Qt.NoFocus,
+            )
+            button.setFixedSize(90, 70)
+            self.fileira_1.addWidget(button, 2)
+        self.grid_layout.addLayout(self.fileira_1, 1, 0, 1, 11, alignment=QtCore.Qt.AlignCenter)
+
+        for i, letter in enumerate(LETTERS2):
+            j = 2
+            print(letter, j, i)
+            button = QtWidgets.QToolButton(
+                text=letter,
+                clicked=self.onClicked,
+                focusPolicy=QtCore.Qt.NoFocus,
+            )
+            button.setFixedSize(100, 70)
+            self.fileira_2.addWidget(button, 2)
+        self.grid_layout.addLayout(self.fileira_2, 2, 0, 1, 11, alignment=QtCore.Qt.AlignCenter)
+
+
+        for i, letter in enumerate(LETTERS3):
+            j = 3
+            print(letter, j, i)
+            button = QtWidgets.QToolButton(
+                text=letter,
+                clicked=self.onClicked,
+                focusPolicy=QtCore.Qt.NoFocus,
+            )
+            button.setFixedSize(140, 70)
+            self.fileira_3.addWidget(button, 2)
+        self.grid_layout.addLayout(self.fileira_3, 3, 0, 1, 11, alignment=QtCore.Qt.AlignCenter)
+
+        for i, number in enumerate(numbers):
+            print(number, i)
+            button = QtWidgets.QToolButton(
+                text=number,
+                clicked=self.onClicked,
+                focusPolicy=QtCore.Qt.NoFocus,
+            )
+            button.setFixedSize(90, 70)
+            self.numbers_layout.addWidget(button, 2)
+        self.grid_layout.addLayout(self.numbers_layout, 0, 0, 1, 12, alignment=QtCore.Qt.AlignCenter)
+
+        for i, text in enumerate(("Del", "Shift")):
+            i += 1
+            button = QtWidgets.QToolButton(
+                text=text, clicked=self.onClicked, focusPolicy=QtCore.Qt.NoFocus
+            )
+            button.setFixedSize(90, 70)
+            self.grid_layout.addWidget(button, i, 11)
+
+        button = QtWidgets.QToolButton(
+            text="Enter", clicked=self.onClicked, focusPolicy=QtCore.Qt.NoFocus
+        )
+        button.setFixedSize(90, 70)
+        self.grid_layout.addWidget(button, 3, 11)  #, 1, 2
+
+        # button = QtWidgets.QToolButton(
+        #     text="Space", clicked=self.onClicked, focusPolicy=QtCore.Qt.NoFocus
+        # )
+        # button.setFixedSize(500, 70)
+        # self.grid_layout.addWidget(
+        #     button, 4, 0, 1, 7, alignment=QtCore.Qt.AlignCenter
+        # )
+        # self.setFixedSize(self.sizeHint())
+        #
+        # self.grid_layout.setContentsMargins(50, 50, 50, 50)
+        # self.grid_layout.setSpacing(1)
+        self.grid.addLayout(self.grid_layout, 4, 0,  alignment=QtCore.Qt.AlignHCenter)
+
+    @QtCore.pyqtSlot()
+    def onClicked(self):
+        button = self.sender()
+        if button is None:
+            return
+        widget = QtWidgets.QApplication.focusWidget()
+
+        text = button.text()
+        key = LUT[text]
+        if text in ("Del", "Shift", "Enter", "Space"):
+            if text in ("Shift", "Enter"):
+                text = ""
+            elif text == "Space":
+                text = " "
+            elif text == "Del":
+                text = chr(0x7F)
+        event = QtGui.QKeyEvent(
+            QtCore.QEvent.KeyPress, key, QtCore.Qt.NoModifier, text
+        )
+        QtCore.QCoreApplication.postEvent(widget, event)
 
     def AtualizaJson(self):
         logging.info('Atualizando Json com biometrias')
@@ -369,6 +549,7 @@ class Janela(QMainWindow):
 
     def LimpaCampo(self):
         self.caixa_texto.clear()
+        #self.grid.removeItem(self.grid_layout)
 
     def LimpaLabel(self):
         self.ImprimeLabel1('Digite seu id no campo a cima\n e pressione ENTER.')

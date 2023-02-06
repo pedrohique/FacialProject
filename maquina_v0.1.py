@@ -106,37 +106,37 @@ def busca_arduino(dir_linux):
 
 logging.info('Buscando dispositivos.')
 logging.info('Tentando conexão com o leitor biometrico')
-while True:
-    try:
-        # logging.info('Buscando dispositivos conectados')
-        dir_linux = os.listdir('/dev/')
-        finger = busca_sensor(dir_linux)
-        if finger:
-            break
-        time.sleep(1)
-    except OSError as e:
-        print(e)
-        logging.error(e)
-        pass
-    except RuntimeError as run_err:
-        print(run_err)
-        logging.error(run_err)
-        pass
-
-logging.info('Tentando conexão com o arduino')
-while True:
-    try:
-        dir_linux = os.listdir('/dev/')
-        ser = busca_arduino(dir_linux)
-        if ser:
-            break
-        time.sleep(1)
-    except OSError as e:
-        logging.error(e)
-        pass
-    except RuntimeError as run_err:
-        logging.error(run_err)
-        pass
+# while True:
+#     try:
+#         # logging.info('Buscando dispositivos conectados')
+#         dir_linux = os.listdir('/dev/')
+#         finger = busca_sensor(dir_linux)
+#         if finger:
+#             break
+#         time.sleep(1)
+#     except OSError as e:
+#         print(e)
+#         logging.error(e)
+#         pass
+#     except RuntimeError as run_err:
+#         print(run_err)
+#         logging.error(run_err)
+#         pass
+#
+# logging.info('Tentando conexão com o arduino')
+# while True:
+#     try:
+#         dir_linux = os.listdir('/dev/')
+#         ser = busca_arduino(dir_linux)
+#         if ser:
+#             break
+#         time.sleep(1)
+#     except OSError as e:
+#         logging.error(e)
+#         pass
+#     except RuntimeError as run_err:
+#         logging.error(run_err)
+#         pass
 
 
 
