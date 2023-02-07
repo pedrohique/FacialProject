@@ -336,7 +336,7 @@ class Janela(QMainWindow):
 
 
     def click_caixa_texto(self, mouseEvent):
-        self.ImprimeLabel1('caixa de texto clicada')
+        # self.ImprimeLabel1('caixa de texto clicada')
         self.frame.show()
 
 
@@ -352,6 +352,7 @@ class Janela(QMainWindow):
         self.numbers_layout = QHBoxLayout()
         self.frame = QtWidgets.QFrame()
 
+
         for i, letter in enumerate(LETTERS1):
             j = 1
             if self.caps:
@@ -363,6 +364,10 @@ class Janela(QMainWindow):
                 focusPolicy=QtCore.Qt.NoFocus,
             )
             button.setFixedSize(90, 70)
+            self.fonte_teclado = button.font()
+            self.fonte_teclado.setPointSize(25)
+            button.setFont(self.fonte_teclado)
+
             self.fileira_1.addWidget(button, 2)
         self.grid_layout.addLayout(self.fileira_1, 1, 0, 1, 11, alignment=QtCore.Qt.AlignCenter)
 
@@ -377,6 +382,9 @@ class Janela(QMainWindow):
                 focusPolicy=QtCore.Qt.NoFocus,
             )
             button.setFixedSize(100, 70)
+            self.fonte_teclado = button.font()
+            self.fonte_teclado.setPointSize(25)
+            button.setFont(self.fonte_teclado)
             self.fileira_2.addWidget(button, 2)
         self.grid_layout.addLayout(self.fileira_2, 2, 0, 1, 11, alignment=QtCore.Qt.AlignCenter)
 
@@ -391,6 +399,9 @@ class Janela(QMainWindow):
                 focusPolicy=QtCore.Qt.NoFocus,
             )
             button.setFixedSize(140, 70)
+            self.fonte_teclado = button.font()
+            self.fonte_teclado.setPointSize(25)
+            button.setFont(self.fonte_teclado)
             self.fileira_3.addWidget(button, 2)
         self.grid_layout.addLayout(self.fileira_3, 3, 0, 1, 11, alignment=QtCore.Qt.AlignCenter)
 
@@ -402,6 +413,9 @@ class Janela(QMainWindow):
                 focusPolicy=QtCore.Qt.NoFocus,
             )
             button.setFixedSize(90, 70)
+            self.fonte_teclado = button.font()
+            self.fonte_teclado.setPointSize(25)
+            button.setFont(self.fonte_teclado)
             self.numbers_layout.addWidget(button, 2)
         self.grid_layout.addLayout(self.numbers_layout, 0, 0, 1, 12, alignment=QtCore.Qt.AlignCenter)
 
@@ -411,12 +425,18 @@ class Janela(QMainWindow):
                 text=text, clicked=self.onClicked, focusPolicy=QtCore.Qt.NoFocus
             )
             button.setFixedSize(90, 70)
+            self.fonte_teclado = button.font()
+            self.fonte_teclado.setPointSize(25)
+            button.setFont(self.fonte_teclado)
             self.grid_layout.addWidget(button, i, 11)
 
         button = QtWidgets.QToolButton(
             text="Caps", clicked=self.onClicked, focusPolicy=QtCore.Qt.NoFocus
         )
         button.setFixedSize(90, 70)
+        self.fonte_teclado = button.font()
+        self.fonte_teclado.setPointSize(25)
+        button.setFont(self.fonte_teclado)
         self.grid_layout.addWidget(button, 3, 11)  #, 1, 2
 
         self.frame.setLayout(self.grid_layout)
@@ -536,9 +556,10 @@ class Janela(QMainWindow):
         self.key = self.caixa_texto.text()
         # Verificação visual
         if self.key:
-            if self.key == "*/*":
+            if self.key == ".1234.":
                 self.ImprimeLabel1('Atualizando as digitais.')
                 self.AtualizaJson()
+                self.caixa_texto.clear()
                 # self.timer1.start(1000)
 
             else:
