@@ -1,10 +1,13 @@
 from PyQt5 import QtCore
-from PyQt5.QtWidgets import QApplication, QMainWindow, QPushButton, QLabel, QLineEdit, QWidget, QHBoxLayout, QFormLayout, QGridLayout
+from PyQt5.QtWidgets import QApplication, QMainWindow, QPushButton, QLabel, QLineEdit, QWidget, QHBoxLayout, QFormLayout, QGridLayout, QSizePolicy
 from PyQt5.QtGui import QPixmap
-from PyQt5.QtCore import QTimer
+from PyQt5.QtCore import QTimer, QSize
+
 import sys
 import os
 from PyQt5 import QtCore, QtGui, QtWidgets
+
+import ctypes
 
 os.environ["QT_IM_MODULE"] = "qtvirtualkeyboard"
 
@@ -17,12 +20,13 @@ import logging
 
 
 dir_local = '/home/pedro/BiometriaProject/maquina/'
+# dir_local = '/home/i9/BiometriaProject/maquina/'
 
 
 logging.basicConfig(filename= dir_local + '/logs/biometria.log', level=logging.DEBUG, filemode='a+',
                     format='%(asctime)s - %(levelname)s:%(message)s', datefmt='%d/%m/%Y %I:%M:%S %p')
 
-# logging = setup_logger('biometria', dir_local + '/logs/biometria.log')
+
 
 
 # Buscando dados de login
@@ -156,6 +160,7 @@ LUT = {
     "8": QtCore.Qt.Key_8,
     "9": QtCore.Qt.Key_9,
     "0": QtCore.Qt.Key_0,
+    "←": QtCore.Qt.Key_Backspace,
 
     "q": QtCore.Qt.Key_Q,
     "w": QtCore.Qt.Key_W,
@@ -235,26 +240,27 @@ def StyleLabel(cor='black'):
     return command
 
 class Janela(QMainWindow):
-    def __init__(self, parent=None):
+    def __init__(self, app, parent=None):
         super().__init__(parent)
 
         layout = QFormLayout()
+        self.App = app
+
         self.layout_butons = QHBoxLayout()
         self.grid = QGridLayout()
 
         widget = QWidget()
-
         widget.setLayout(self.grid)
 
         """ Botãoes """
 
         self.limpar = QPushButton('Limpar', self)
-        self.limpar.resize(500, 75)  # Define o tamanho do botão
+        # self.limpar.resize(500, 75)  # Define o tamanho do botão
         self.limpar.setStyleSheet('QPushButton {background-color: #f1f1f1; font:bold; font-size:20px; padding :10px}')  # estetica do botão
         self.limpar.clicked.connect(self.LimpaCampo)  # conecta o botão  com a função que ele vai rodar quando cicado
 
         self.ok_but = QPushButton('Ok', self)
-        self.ok_but.resize(500, 75)  # Define o tamanho do botão
+        # self.ok_but.resize(500, 75)  # Define o tamanho do botão
         self.ok_but.setStyleSheet('QPushButton {background-color: #f1f1f1; font:bold; font-size:20px; padding :10px}')  # estetica do botão
         self.ok_but.clicked.connect(self.BuscaDigital)  # conecta o botão  com a função que ele vai rodar quando cicado
 
@@ -268,16 +274,17 @@ class Janela(QMainWindow):
 
         """Labels"""
         self.label_1 = QLabel(self)  # Self Indica que a janela criada no Carregar Janela é que sera iniciada
-        self.label_1.resize(500, 300)  # Largura x Altura
+        # self.label_1.resize(500, 300)  # Largura x Altura
         self.label_1.setStyleSheet(StyleLabel())
         self.label_1.setStyleSheet('padding :15px')
         self.label_1.setAlignment(QtCore.Qt.AlignCenter)
 
 
 
+
         """Caixa Texto"""
         self.caixa_texto = QLineEdit(self)
-        self.caixa_texto.resize(500, 300)   # Largura x Altura
+        # self.caixa_texto.resize(500, 300)   # Largura x Altura
         self.caixa_texto.setStyleSheet('padding :15px')
         self.caps = False
 
@@ -294,18 +301,20 @@ class Janela(QMainWindow):
 
         """ Layouts """
 
-        self.grid.addWidget(self.label_image, 0, 0)
+        self.grid.addWidget(self.label_image, 0, 0, alignment=QtCore.Qt.AlignTop)
         layout.addRow(self.caixa_texto)
         self.grid.addWidget(self.label_1, 2, 0)
         self.layout_butons.addWidget(self.ok_but, 2)
         self.layout_butons.addWidget(self.limpar, 2)
 
-        self.grid.addLayout(layout, 1, 0)
-        self.grid.addLayout(self.layout_butons, 3, 0)
+        self.grid.addLayout(layout, 1, 0, alignment=QtCore.Qt.AlignCenter)
+        self.grid.addLayout(self.layout_butons, 3, 0, alignment=QtCore.Qt.AlignCenter)
+
 
         self.grid.setContentsMargins(50, 50, 50, 50)
-        self.grid.setSpacing(10)
+        self.grid.setSpacing(1)
         self.setCentralWidget(widget)
+
 
         """ Timers """
         self.timer_busca = QTimer(self)
@@ -321,8 +330,10 @@ class Janela(QMainWindow):
         self.fileira_2 = QHBoxLayout()
         self.fileira_3 = QHBoxLayout()
         self.numbers_layout = QHBoxLayout()
-        self.frame = QtWidgets.QFrame()
-
+        self.frame = QtWidgets.QFrame(self)
+        # self.frame.setMinimumSize(QSize(50, 50))
+        # self.frame.setSizePolicy(
+        #     QSizePolicy.MinimumExpanding, QSizePolicy.Fixed)
 
 
         """ inicia Janela principal """
@@ -343,37 +354,66 @@ class Janela(QMainWindow):
 
     def keyboard(self):
         letters = (LETTERS1, LETTERS2, LETTERS3)
+        sp = QSizePolicy()
+        sp.setHorizontalPolicy(QSizePolicy.Fixed)
+        sp.setVerticalPolicy(QSizePolicy.Fixed)
+        # sp.setHorizontalPolicy(QSizePolicy.Expanding)
+        # sp.setVerticalPolicy(QSizePolicy.Expanding)
 
-        numbers = NUMBERS + ".'"
+
+
+
+        numbers = NUMBERS # + "←"
         self.grid_layout = QtWidgets.QGridLayout(self)
         self.fileira_1 = QHBoxLayout()
         self.fileira_2 = QHBoxLayout()
         self.fileira_3 = QHBoxLayout()
+        # self.teclado_layout = QtWidgets.QGridLayout(self)
         self.numbers_layout = QHBoxLayout()
         self.frame = QtWidgets.QFrame()
+        self.style_board = """width: 100%;
+                            Height: 70%;
+                            padding:1px
+                            
+                            """
+
+        width = 1366
+        height = 768
+        # app = self.App
+        # screen_resolution = app.desktop().screenGeometry()
+        # width, height = screen_resolution.width(), screen_resolution.height()
+        width = ((width/100)*90)
+        height = ((height/100)*30)
+
+
+
 
 
         for i, letter in enumerate(LETTERS1):
             j = 1
             if self.caps:
                 letter = letter.upper()
-            print(letter, j, i)
             button = QtWidgets.QToolButton(
                 text=letter,
                 clicked=self.onClicked,
                 focusPolicy=QtCore.Qt.NoFocus,
             )
-            button.setFixedSize(90, 70)
+
             self.fonte_teclado = button.font()
             self.fonte_teclado.setPointSize(25)
+
+            button.setFixedWidth(round(width/(len(LETTERS1) + 3)))
+            button.setFixedHeight(round(height/(4 + 1)))
+
+
             button.setFont(self.fonte_teclado)
+            # button.setSizePolicy(sp)
 
             self.fileira_1.addWidget(button, 2)
-        self.grid_layout.addLayout(self.fileira_1, 1, 0, 1, 11, alignment=QtCore.Qt.AlignCenter)
+        self.grid_layout.addLayout(self.fileira_1, 1, 0, 1, len(numbers))  # ,  alignment=QtCore.Qt.AlignCenter)
 
         for i, letter in enumerate(LETTERS2):
             j = 2
-            print(letter, j, i)
             if self.caps:
                 letter = letter.upper()
             button = QtWidgets.QToolButton(
@@ -381,16 +421,24 @@ class Janela(QMainWindow):
                 clicked=self.onClicked,
                 focusPolicy=QtCore.Qt.NoFocus,
             )
-            button.setFixedSize(100, 70)
+
+            #button.setStyleSheet(self.style_board)
+
             self.fonte_teclado = button.font()
             self.fonte_teclado.setPointSize(25)
+            button.setFixedWidth(round(width/(len(LETTERS2) + 3)))
+            button.setFixedHeight(round(height/(4 + 1)))
+
             button.setFont(self.fonte_teclado)
+            button.setSizePolicy(sp)
+
+
             self.fileira_2.addWidget(button, 2)
-        self.grid_layout.addLayout(self.fileira_2, 2, 0, 1, 11, alignment=QtCore.Qt.AlignCenter)
+            # self.grid_layout.addWidget(button, j, i, 1, 1)
+        self.grid_layout.addLayout(self.fileira_2 , 2, 0, 1, len(numbers))# , alignment=QtCore.Qt.AlignCenter)
 
         for i, letter in enumerate(LETTERS3):
             j = 3
-            print(letter, j, i)
             if self.caps:
                 letter = letter.upper()
             button = QtWidgets.QToolButton(
@@ -398,50 +446,97 @@ class Janela(QMainWindow):
                 clicked=self.onClicked,
                 focusPolicy=QtCore.Qt.NoFocus,
             )
-            button.setFixedSize(140, 70)
             self.fonte_teclado = button.font()
             self.fonte_teclado.setPointSize(25)
+            button.setFixedWidth(round(width/(len(LETTERS3) + 3)))
+            button.setFixedHeight(round(height/(4 + 1)))
+
             button.setFont(self.fonte_teclado)
+            button.setSizePolicy(sp)
+
             self.fileira_3.addWidget(button, 2)
-        self.grid_layout.addLayout(self.fileira_3, 3, 0, 1, 11, alignment=QtCore.Qt.AlignCenter)
+        self.grid_layout.addLayout(self.fileira_3, 3, 0, 1, len(numbers))# , alignment=QtCore.Qt.AlignCenter)
 
         for i, number in enumerate(numbers):
-            print(number, i)
+            j=0
             button = QtWidgets.QToolButton(
                 text=number,
                 clicked=self.onClicked,
                 focusPolicy=QtCore.Qt.NoFocus,
             )
-            button.setFixedSize(90, 70)
             self.fonte_teclado = button.font()
             self.fonte_teclado.setPointSize(25)
-            button.setFont(self.fonte_teclado)
-            self.numbers_layout.addWidget(button, 2)
-        self.grid_layout.addLayout(self.numbers_layout, 0, 0, 1, 12, alignment=QtCore.Qt.AlignCenter)
 
+            button.setFont(self.fonte_teclado)
+            button.setFixedWidth(round(width/(len(numbers) + 3)))
+            button.setFixedHeight(round(height/(4 + 1)))
+
+            button.setSizePolicy(sp)
+            self.numbers_layout.addWidget(button, 2)
+
+
+        button_backspace = QtWidgets.QToolButton(
+                text="←",
+                clicked=self.onClicked,
+                focusPolicy=QtCore.Qt.NoFocus,
+            )
+
+        button_backspace.setFixedWidth(round(width / (len(numbers))))
+        button_backspace.setFixedHeight(round(height / (4 + 1)))
+
+        self.fonte_teclado = button_backspace.font()
+        self.fonte_teclado.setPointSize(25)
+
+
+        button_backspace.setFont(self.fonte_teclado)
+        button_backspace.setSizePolicy(sp)
+
+
+        self.grid_layout.addLayout(self.numbers_layout, 0, 0, 1, len(numbers))# , alignment=QtCore.Qt.AlignCenter)
+        self.grid_layout.addWidget(button_backspace, 0, len(numbers)+1, 1, 2) #.addWidget(button_backspace, 2)
         for i, text in enumerate(("Del", "Shift")):
             i += 1
             button = QtWidgets.QToolButton(
                 text=text, clicked=self.onClicked, focusPolicy=QtCore.Qt.NoFocus
             )
-            button.setFixedSize(90, 70)
+            # button.setFixedSize(90, 70)
+
             self.fonte_teclado = button.font()
             self.fonte_teclado.setPointSize(25)
+
             button.setFont(self.fonte_teclado)
-            self.grid_layout.addWidget(button, i, 11)
+            button.setSizePolicy(sp)
+            button.setFixedWidth(round(width / (len(numbers))))
+            button.setFixedHeight(round(height / (4 + 1)))
+            # button.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
+            #button.setStyleSheet(self.style_board)
+            button.setSizePolicy(sp)
+            self.grid_layout.addWidget(button, i, len(numbers)+1)
+
 
         button = QtWidgets.QToolButton(
             text="Caps", clicked=self.onClicked, focusPolicy=QtCore.Qt.NoFocus
         )
-        button.setFixedSize(90, 70)
         self.fonte_teclado = button.font()
         self.fonte_teclado.setPointSize(25)
-        button.setFont(self.fonte_teclado)
-        self.grid_layout.addWidget(button, 3, 11)  #, 1, 2
+        # button.setStyleSheet(self.style_board)
 
+        button.setFont(self.fonte_teclado)
+        button.setSizePolicy(sp)
+
+        self.grid_layout.addWidget(button, 3, 11)  #, 1, 2
+        button.setFixedWidth(round(width / (len(numbers))))
+        button.setFixedHeight(round(height / (4 + 1)))
+
+        self.grid_layout.setAlignment(QtCore.Qt.AlignCenter)
         self.frame.setLayout(self.grid_layout)
 
-        self.grid.addWidget(self.frame, 4, 0,  alignment=QtCore.Qt.AlignHCenter)
+
+
+        self.frame.setMinimumSize(round(width), round(height))
+        self.frame.setSizePolicy(sp)
+
+        self.grid.addWidget(self.frame, 4, 0, alignment=QtCore.Qt.AlignHCenter)
         self.frame.hide()
 
 
@@ -524,15 +619,19 @@ class Janela(QMainWindow):
             else:
                 logging.warning('Endereço do servidor ausente -- nao foi possivel atualizar as digitais')
         except OSError as oe:
+            print(oe)
             logging.error(oe)
             pass
         except RuntimeError as run_err:
+            print(run_err)
             logging.error(run_err)
             pass
         except TypeError as te:
+            print(te)
             logging.error(te)
             pass
         except ConnectionError as ce:
+            print(ce)
             logging.error(ce)
             pass
     def send_arduino(self, key):
@@ -549,6 +648,7 @@ class Janela(QMainWindow):
             logging.error(e)
             pass
         except RuntimeError as run_err:
+
             logging.error(run_err)
             pass
 
@@ -590,6 +690,7 @@ class Janela(QMainWindow):
             try:
                 finger.set_led(color, mode, speed, cycles)
             except Exception as exc:
+
                 print("INFO: Sensor les not support LED. Error:", str(exc))
 
         set_led_local(color=3, mode=1)
@@ -636,12 +737,13 @@ class Janela(QMainWindow):
         self.remove_teclado()
 
     def LimpaLabel(self):
-        self.ImprimeLabel1('Digite seu id no campo a cima\n e pressione ENTER.')
+        self.ImprimeLabel1('Digite seu id no campo a cima e pressione ENTER.')
         self.timer_limpa.stop()
 
     def ImprimeLabel1(self, text, color='black'):
         self.label_1.setStyleSheet(StyleLabel(color))
         self.label_1.setText(text)
+        self.label_1.adjustSize()
         print(text)
         self.timer_limpa.start(2500)
 
@@ -656,14 +758,17 @@ if __name__ == "__main__":
         App = QApplication(sys.argv)
     except Exception as exc:
         logging.error(exc)
+        print(exc)
     try:
         logging.info('Abrindo Janela')
-        j = Janela()
+        j = Janela(App)
     except Exception as exc:
         logging.error(exc)
+        print(exc)
     try:
         logging.info('Mostrando janela.')
         j.show()
     except Exception as exc:
         logging.error(exc)
+        print(exc)
     sys.exit(App.exec_())
