@@ -17,10 +17,11 @@ import serial
 import adafruit_fingerprint
 import configparser
 import logging
+import time
 
 
 dir_local = '/home/i9/biometria1.0/maquina/'
-# dir_local = '/home/i9/BiometriaProject/maquina/'
+# dir_local = '/home/pedro/Projetos/BiometriaProject/maquina/'
 
 
 logging.basicConfig(filename= dir_local + '/logs/biometria.log', level=logging.DEBUG, filemode='a+',
@@ -554,9 +555,9 @@ class Janela(QMainWindow):
                             data_dict = {}
                             for emp in bios['biometrics']:
                                 if emp['FingerPrintTemplate']:
-                                    data_dict[emp['ID']] = [list(emp['FingerPrintTemplate']), emp['BadgeNumber'], emp['acess']]
+                                    data_dict[emp['ID']] = [list(emp['FingerPrintTemplate']), emp['BadgeNumber']]
                                 else:
-                                    data_dict[emp['ID']] = [None, emp['BadgeNumber'], emp['acess']]
+                                    data_dict[emp['ID']] = [None, emp['BadgeNumber']]
                             with open("template.json", "w") as arquivo:
                                 json.dump(data_dict, arquivo, indent=4)
                             self.ImprimeLabel1('Biometrias atualizadas.', 'green')
