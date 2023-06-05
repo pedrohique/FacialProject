@@ -19,7 +19,7 @@ import configparser
 import logging
 
 
-dir_local = '/home/pedro/Projetos/BiometriaProject/maquina/'
+dir_local = '/home/i9/biometria1.0/maquina/'
 # dir_local = '/home/i9/BiometriaProject/maquina/'
 
 
@@ -237,7 +237,7 @@ LUT = {
 
 
 def StyleLabel(cor='black'):
-    command = "QLabel {background-color: #f1f1f1; font:bold; font-size:20px; color:"+cor+"; text-align:center; padding :15px}"
+    command = "QLabel {background-color: #f1f1f1; font:bold; font-size:20px; color:"+cor+"; text-align:center; padding :10px}"
     return command
 
 class Janela(QMainWindow):
@@ -256,12 +256,10 @@ class Janela(QMainWindow):
         """ Botãoes """
 
         self.limpar = QPushButton('Limpar', self)
-        # self.limpar.resize(500, 75)  # Define o tamanho do botão
         self.limpar.setStyleSheet('QPushButton {background-color: #F1F1F1; font:bold; font-size:20px; padding :10px}')  # estetica do botão
         self.limpar.clicked.connect(self.LimpaCampo)  # conecta o botão  com a função que ele vai rodar quando cicado
 
         self.ok_but = QPushButton('Ok', self)
-        # self.ok_but.resize(500, 75)  # Define o tamanho do botão
         self.ok_but.setStyleSheet('QPushButton {background-color: #13F23A; font:bold; font-size:20px; padding :10px}')  # estetica do botão
         self.ok_but.clicked.connect(self.BuscaDigital)  # conecta o botão  com a função que ele vai rodar quando cicado
 
@@ -275,11 +273,10 @@ class Janela(QMainWindow):
 
         """Labels"""
         self.label_1 = QLabel(self)  # Self Indica que a janela criada no Carregar Janela é que sera iniciada
-        # self.label_1.resize(500, 30)  # Largura x Altura
-        # self.label_1.setStyleSheet(StyleLabel())
-        self.label_1.setStyleSheet('padding :15px')
+
+        self.label_1.setStyleSheet('padding :10px')
         self.label_1.setAlignment(QtCore.Qt.AlignCenter)
-        self.label_1.setMaximumHeight(50)
+        self.label_1.setMaximumHeight(65)
 
 
 
@@ -288,7 +285,8 @@ class Janela(QMainWindow):
         """Caixa Texto"""
         self.caixa_texto = QLineEdit(self)
         # self.caixa_texto.resize(500, 300)   # Largura x Altura
-        self.caixa_texto.setStyleSheet('padding :15px')
+        self.caixa_texto.setStyleSheet('padding :10px')
+        self.caixa_texto.setMaximumHeight(65)
         #  self.caps = False
 
 
@@ -296,7 +294,7 @@ class Janela(QMainWindow):
 
         # codigo abaixo altera o tamanho da fonte
         self.fonte = self.caixa_texto.font()
-        self.fonte.setPointSize(50)
+        self.fonte.setPointSize(30)
         self.caixa_texto.setFont(self.fonte)
 
         # Chama função qando adiciona um id e aperta enter
@@ -307,10 +305,7 @@ class Janela(QMainWindow):
         self.grid.addWidget(self.label_image, 0, 0, alignment=QtCore.Qt.AlignTop)
         layout.addRow(self.caixa_texto)
         self.grid.addWidget(self.label_1, 2, 0)
-        # self.grid.setRowStretch(0, 2)
-        # self.grid.setRowStretch(1, 2)
-        # self.grid.setRowStretch(2, 2)
-        # self.grid.setRowStretch(3, 6)
+
         
         self.layout_butons.addWidget(self.limpar, 2)
         self.layout_butons.addWidget(self.ok_but, 2)
@@ -318,8 +313,6 @@ class Janela(QMainWindow):
         self.grid.addLayout(layout, 1, 0, alignment=QtCore.Qt.AlignCenter)
         self.grid.addLayout(self.layout_butons, 3, 0, alignment=QtCore.Qt.AlignCenter)
 
-
-        self.grid.setContentsMargins(50, 50, 50, 50)
         self.grid.setSpacing(1)
         self.setCentralWidget(widget)
 
@@ -339,9 +332,7 @@ class Janela(QMainWindow):
         self.fileira_3 = QHBoxLayout()
         self.numbers_layout = QHBoxLayout()
         self.frame = QtWidgets.QFrame(self)
-        # self.frame.setMinimumSize(QSize(50, 50))
-        # self.frame.setSizePolicy(
-        #     QSizePolicy.MinimumExpanding, QSizePolicy.Fixed)
+
 
 
         """ inicia Janela principal """
@@ -365,8 +356,7 @@ class Janela(QMainWindow):
         sp = QSizePolicy()
         sp.setHorizontalPolicy(QSizePolicy.Fixed)
         sp.setVerticalPolicy(QSizePolicy.Fixed)
-        # sp.setHorizontalPolicy(QSizePolicy.Expanding)
-        # sp.setVerticalPolicy(QSizePolicy.Expanding)
+
 
 
 
@@ -385,13 +375,13 @@ class Janela(QMainWindow):
                             
                             """
 
-        width = 1366
-        height = 768
+        width = 1024
+        height = 600
         # app = self.App
         # screen_resolution = app.desktop().screenGeometry()
         # width, height = screen_resolution.width(), screen_resolution.height()
         width = ((width/100)*90)
-        height = ((height/100)*60)
+        height = ((height/100)*55)
 
 
 
@@ -399,8 +389,7 @@ class Janela(QMainWindow):
 
         for i, letter in enumerate(LETTERS1):
             j = 1
-            # if self.caps:
-            #     letter = letter.upper()
+
             button = QtWidgets.QToolButton(
                 text=letter,
                 clicked=self.onClicked,
@@ -415,22 +404,19 @@ class Janela(QMainWindow):
 
 
             button.setFont(self.fonte_teclado)
-            # button.setSizePolicy(sp)
 
             self.fileira_1.addWidget(button, 2)
         self.grid_layout.addLayout(self.fileira_1, 1, 0, 1, len(numbers) + 1)  # ,  alignment=QtCore.Qt.AlignCenter)
 
         for i, letter in enumerate(LETTERS2):
             j = 2
-            # if self.caps:
-            #     letter = letter.upper()
+
             button = QtWidgets.QToolButton(
                 text=letter,
                 clicked=self.onClicked,
                 focusPolicy=QtCore.Qt.NoFocus,
             )
 
-            #button.setStyleSheet(self.style_board)
 
             self.fonte_teclado = button.font()
             self.fonte_teclado.setPointSize(25)
@@ -513,8 +499,8 @@ class Janela(QMainWindow):
 
 
         key = LUT[text]
-        # if self.caps:
-        #     text = text.upper()
+        
+
         # if text in ("Del", "Shift", "Enter", "Space", "Caps", "CAPS"):
         #     if text in ("Shift", "Enter"):
         #         text = ""
@@ -704,9 +690,6 @@ class Janela(QMainWindow):
         self.timer_limpa.stop()
 
     def ImprimeLabel1(self, text, color='black'):
-        #self.label_1.setStyleSheet("""QWidget {
-            #background-color: green;
-            # }""")
         self.label_1.setStyleSheet(StyleLabel(color))
         self.label_1.setText(text)
         self.label_1.adjustSize()
