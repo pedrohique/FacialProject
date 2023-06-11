@@ -1303,3 +1303,174 @@
 05/06/2023 04:29:29 PM - INFO:Buscando dados de conexao no arquivo de configuracao
 05/06/2023 04:29:29 PM - INFO:Buscando dispositivos.
 05/06/2023 04:29:29 PM - INFO:Tentando conexão com o leitor biometrico
+05/06/2023 10:31:53 PM - INFO:Buscando arquivo de configuracao.
+05/06/2023 10:31:53 PM - INFO:Dados de configuração -- ok
+05/06/2023 10:31:53 PM - INFO:Buscando dados de conexao no arquivo de configuracao
+05/06/2023 10:31:53 PM - INFO:Buscando dispositivos.
+05/06/2023 10:31:53 PM - INFO:Tentando conexão com o leitor biometrico
+05/06/2023 10:32:17 PM - INFO:Buscando arquivo de configuracao.
+05/06/2023 10:32:17 PM - INFO:Dados de configuração -- ok
+05/06/2023 10:32:17 PM - INFO:Buscando dados de conexao no arquivo de configuracao
+05/06/2023 10:32:17 PM - INFO:Buscando dispositivos.
+05/06/2023 10:32:17 PM - INFO:Tentando conexão com o leitor biometrico
+05/06/2023 10:32:17 PM - INFO:Abrindo instancia.
+05/06/2023 10:32:17  - INFO:Abrindo Janela
+05/06/2023 10:32:17  - INFO:iniciando interface
+05/06/2023 10:32:17  - INFO:Atualizando Json com biometrias
+05/06/2023 10:32:17  - DEBUG:Starting new HTTPS connection (1): 3.17.123.189:9090
+05/06/2023 10:32:18  - DEBUG:https://3.17.123.189:9090 "POST /token HTTP/1.1" 200 172
+05/06/2023 10:32:18  - DEBUG:Starting new HTTPS connection (1): 3.17.123.189:9090
+05/06/2023 10:32:19  - DEBUG:https://3.17.123.189:9090 "GET /employeebio?siteid=DEFAULT HTTP/1.1" 200 2628
+05/06/2023 10:32:19  - INFO:Biometrias atualizadas com sucesso.
+05/06/2023 10:32:19  - INFO:Mostrando janela.
+05/06/2023 10:37:07 PM - INFO:Buscando arquivo de configuracao.
+05/06/2023 10:37:07 PM - INFO:Dados de configuração -- ok
+05/06/2023 10:37:07 PM - INFO:Buscando dados de conexao no arquivo de configuracao
+05/06/2023 10:37:07 PM - INFO:Buscando dispositivos.
+05/06/2023 10:37:07 PM - INFO:Tentando conexão com o leitor biometrico
+05/06/2023 10:37:07 PM - INFO:Abrindo instancia.
+05/06/2023 10:37:07  - INFO:Abrindo Janela
+05/06/2023 10:37:07  - INFO:iniciando interface
+05/06/2023 10:37:07  - INFO:Atualizando Json com biometrias
+05/06/2023 10:37:07  - DEBUG:Starting new HTTPS connection (1): 3.17.123.189:9090
+05/06/2023 10:37:08  - DEBUG:https://3.17.123.189:9090 "POST /token HTTP/1.1" 200 172
+05/06/2023 10:37:09  - DEBUG:Starting new HTTPS connection (1): 3.17.123.189:9090
+05/06/2023 10:37:09  - DEBUG:https://3.17.123.189:9090 "GET /employeebio?siteid=DEFAULT HTTP/1.1" 200 2628
+05/06/2023 10:37:09  - INFO:Biometrias atualizadas com sucesso.
+05/06/2023 10:37:09  - INFO:Mostrando janela.
+05/06/2023 10:55:52 PM - INFO:Buscando arquivo de configuracao.
+05/06/2023 10:55:52 PM - INFO:Dados de configuração -- ok
+05/06/2023 10:55:52 PM - INFO:Buscando dados de conexao no arquivo de configuracao
+05/06/2023 10:55:52 PM - INFO:Buscando dispositivos.
+05/06/2023 10:55:52 PM - INFO:Tentando conexão com o leitor biometrico
+11/06/2023 05:33:50 PM - INFO:Buscando arquivo de configuracao.
+11/06/2023 05:33:50 PM - INFO:Dados de configuração -- ok
+11/06/2023 05:33:50 PM - INFO:Buscando dados de conexao no arquivo de configuracao
+11/06/2023 05:33:50 PM - INFO:Buscando dispositivos.
+11/06/2023 05:33:50 PM - INFO:Tentando conexão com o leitor biometrico
+11/06/2023 05:35:02 PM - INFO:Buscando arquivo de configuracao.
+11/06/2023 05:35:02 PM - INFO:Dados de configuração -- ok
+11/06/2023 05:35:02 PM - INFO:Buscando dados de conexao no arquivo de configuracao
+11/06/2023 05:35:02 PM - INFO:Buscando dispositivos.
+11/06/2023 05:35:02 PM - INFO:Tentando conexão com o leitor biometrico
+11/06/2023 05:35:02 PM - INFO:Abrindo instancia.
+11/06/2023 05:35:03  - INFO:Abrindo Janela
+11/06/2023 05:35:03  - INFO:iniciando interface
+11/06/2023 05:35:03  - INFO:Atualizando Json com biometrias
+11/06/2023 05:35:03  - DEBUG:Starting new HTTPS connection (1): 3.17.123.189:9090
+11/06/2023 05:35:04  - DEBUG:https://3.17.123.189:9090 "POST /token HTTP/1.1" 200 172
+11/06/2023 05:35:04  - DEBUG:Starting new HTTPS connection (1): 3.17.123.189:9090
+11/06/2023 05:35:04  - DEBUG:https://3.17.123.189:9090 "GET /employeebio?siteid=DEFAULT HTTP/1.1" 200 6859
+11/06/2023 05:35:04  - INFO:Biometrias atualizadas com sucesso.
+11/06/2023 05:35:05  - INFO:Mostrando janela.
+11/06/2023 05:35:46 PM - INFO:Buscando arquivo de configuracao.
+11/06/2023 05:35:46 PM - INFO:Dados de configuração -- ok
+11/06/2023 05:35:46 PM - INFO:Buscando dados de conexao no arquivo de configuracao
+11/06/2023 05:35:46 PM - INFO:Buscando dispositivos.
+11/06/2023 05:35:46 PM - INFO:Tentando conexão com o leitor biometrico
+11/06/2023 05:35:46 PM - INFO:Abrindo instancia.
+11/06/2023 05:35:46  - INFO:Abrindo Janela
+11/06/2023 05:35:46  - INFO:iniciando interface
+11/06/2023 05:35:47  - INFO:Atualizando Json com biometrias
+11/06/2023 05:35:47  - DEBUG:Starting new HTTPS connection (1): 3.17.123.189:9090
+11/06/2023 05:35:47  - DEBUG:https://3.17.123.189:9090 "POST /token HTTP/1.1" 200 172
+11/06/2023 05:35:48  - DEBUG:Starting new HTTPS connection (1): 3.17.123.189:9090
+11/06/2023 05:35:48  - DEBUG:https://3.17.123.189:9090 "GET /employeebio?siteid=DEFAULT HTTP/1.1" 200 6859
+11/06/2023 05:35:48  - INFO:Biometrias atualizadas com sucesso.
+11/06/2023 05:35:48  - INFO:Mostrando janela.
+11/06/2023 05:50:33 PM - INFO:Buscando arquivo de configuracao.
+11/06/2023 05:50:33 PM - INFO:Dados de configuração -- ok
+11/06/2023 05:50:33 PM - INFO:Buscando dados de conexao no arquivo de configuracao
+11/06/2023 05:50:33 PM - INFO:Buscando dispositivos.
+11/06/2023 05:50:33 PM - INFO:Tentando conexão com o leitor biometrico
+11/06/2023 05:50:33 PM - INFO:Abrindo instancia.
+11/06/2023 05:50:33  - INFO:Abrindo Janela
+11/06/2023 05:50:34  - INFO:iniciando interface
+11/06/2023 05:50:34  - INFO:Atualizando Json com biometrias
+11/06/2023 05:50:34  - DEBUG:Starting new HTTPS connection (1): 3.17.123.189:9090
+11/06/2023 05:50:35  - DEBUG:https://3.17.123.189:9090 "POST /token HTTP/1.1" 200 172
+11/06/2023 05:50:35  - DEBUG:Starting new HTTPS connection (1): 3.17.123.189:9090
+11/06/2023 05:50:36  - DEBUG:https://3.17.123.189:9090 "GET /employeebio?siteid=DEFAULT HTTP/1.1" 200 6859
+11/06/2023 05:50:36  - INFO:Biometrias atualizadas com sucesso.
+11/06/2023 05:50:36  - INFO:Mostrando janela.
+11/06/2023 05:51:23 PM - INFO:Buscando arquivo de configuracao.
+11/06/2023 05:51:23 PM - INFO:Dados de configuração -- ok
+11/06/2023 05:51:23 PM - INFO:Buscando dados de conexao no arquivo de configuracao
+11/06/2023 05:51:23 PM - INFO:Buscando dispositivos.
+11/06/2023 05:51:23 PM - INFO:Tentando conexão com o leitor biometrico
+11/06/2023 05:51:23 PM - INFO:Abrindo instancia.
+11/06/2023 05:51:23  - INFO:Abrindo Janela
+11/06/2023 05:51:23  - INFO:iniciando interface
+11/06/2023 05:51:23  - INFO:Atualizando Json com biometrias
+11/06/2023 05:51:23  - DEBUG:Starting new HTTPS connection (1): 3.17.123.189:9090
+11/06/2023 05:51:24  - DEBUG:https://3.17.123.189:9090 "POST /token HTTP/1.1" 200 172
+11/06/2023 05:51:24  - DEBUG:Starting new HTTPS connection (1): 3.17.123.189:9090
+11/06/2023 05:51:25  - DEBUG:https://3.17.123.189:9090 "GET /employeebio?siteid=DEFAULT HTTP/1.1" 200 6859
+11/06/2023 05:51:25  - INFO:Biometrias atualizadas com sucesso.
+11/06/2023 05:51:25  - INFO:Mostrando janela.
+11/06/2023 05:51:39  - INFO:Atualizando Json com biometrias
+11/06/2023 05:51:39  - DEBUG:Starting new HTTPS connection (1): 3.17.123.189:9090
+11/06/2023 05:51:40  - DEBUG:https://3.17.123.189:9090 "POST /token HTTP/1.1" 200 172
+11/06/2023 05:51:40  - DEBUG:Starting new HTTPS connection (1): 3.17.123.189:9090
+11/06/2023 05:51:40  - DEBUG:https://3.17.123.189:9090 "GET /employeebio?siteid=DEFAULT HTTP/1.1" 200 6859
+11/06/2023 05:51:40  - INFO:Biometrias atualizadas com sucesso.
+11/06/2023 06:29:18 PM - INFO:Buscando arquivo de configuracao.
+11/06/2023 06:29:18 PM - INFO:Dados de configuração -- ok
+11/06/2023 06:29:18 PM - INFO:Buscando dados de conexao no arquivo de configuracao
+11/06/2023 06:29:18 PM - INFO:Buscando dispositivos.
+11/06/2023 06:29:18 PM - INFO:Tentando conexão com o leitor biometrico
+11/06/2023 06:29:18 PM - INFO:Abrindo instancia.
+11/06/2023 06:29:18  - INFO:Abrindo Janela
+11/06/2023 06:29:18  - INFO:iniciando interface
+11/06/2023 06:29:19  - INFO:Atualizando Json com biometrias
+11/06/2023 06:29:19  - DEBUG:Starting new HTTPS connection (1): 3.17.123.189:9090
+11/06/2023 06:29:19  - DEBUG:https://3.17.123.189:9090 "POST /token HTTP/1.1" 200 172
+11/06/2023 06:29:20  - DEBUG:Starting new HTTPS connection (1): 3.17.123.189:9090
+11/06/2023 06:29:20  - DEBUG:https://3.17.123.189:9090 "GET /employeebio?siteid=DEFAULT HTTP/1.1" 200 6859
+11/06/2023 06:29:20  - INFO:Biometrias atualizadas com sucesso.
+11/06/2023 06:29:20  - INFO:Mostrando janela.
+11/06/2023 06:34:20 PM - INFO:Buscando arquivo de configuracao.
+11/06/2023 06:34:20 PM - INFO:Dados de configuração -- ok
+11/06/2023 06:34:20 PM - INFO:Buscando dados de conexao no arquivo de configuracao
+11/06/2023 06:34:20 PM - INFO:Buscando dispositivos.
+11/06/2023 06:34:20 PM - INFO:Tentando conexão com o leitor biometrico
+11/06/2023 06:34:20 PM - INFO:Abrindo instancia.
+11/06/2023 06:34:20  - INFO:Abrindo Janela
+11/06/2023 06:34:20  - INFO:iniciando interface
+11/06/2023 06:34:20  - INFO:Atualizando Json com biometrias
+11/06/2023 06:34:20  - DEBUG:Starting new HTTPS connection (1): 3.17.123.189:9090
+11/06/2023 06:34:21  - DEBUG:https://3.17.123.189:9090 "POST /token HTTP/1.1" 200 172
+11/06/2023 06:34:21  - DEBUG:Starting new HTTPS connection (1): 3.17.123.189:9090
+11/06/2023 06:34:22  - DEBUG:https://3.17.123.189:9090 "GET /employeebio?siteid=DEFAULT HTTP/1.1" 200 6859
+11/06/2023 06:34:22  - INFO:Biometrias atualizadas com sucesso.
+11/06/2023 06:34:22  - INFO:Mostrando janela.
+11/06/2023 06:35:09 PM - INFO:Buscando arquivo de configuracao.
+11/06/2023 06:35:09 PM - INFO:Dados de configuração -- ok
+11/06/2023 06:35:09 PM - INFO:Buscando dados de conexao no arquivo de configuracao
+11/06/2023 06:35:09 PM - INFO:Buscando dispositivos.
+11/06/2023 06:35:09 PM - INFO:Tentando conexão com o leitor biometrico
+11/06/2023 06:35:09 PM - INFO:Abrindo instancia.
+11/06/2023 06:35:09  - INFO:Abrindo Janela
+11/06/2023 06:35:09  - INFO:iniciando interface
+11/06/2023 06:35:09  - INFO:Atualizando Json com biometrias
+11/06/2023 06:35:09  - DEBUG:Starting new HTTPS connection (1): 3.17.123.189:9090
+11/06/2023 06:35:10  - DEBUG:https://3.17.123.189:9090 "POST /token HTTP/1.1" 200 172
+11/06/2023 06:35:10  - DEBUG:Starting new HTTPS connection (1): 3.17.123.189:9090
+11/06/2023 06:35:11  - DEBUG:https://3.17.123.189:9090 "GET /employeebio?siteid=DEFAULT HTTP/1.1" 200 6859
+11/06/2023 06:35:11  - INFO:Biometrias atualizadas com sucesso.
+11/06/2023 06:35:11  - INFO:Mostrando janela.
+11/06/2023 06:40:00 PM - INFO:Buscando arquivo de configuracao.
+11/06/2023 06:40:00 PM - INFO:Dados de configuração -- ok
+11/06/2023 06:40:00 PM - INFO:Buscando dados de conexao no arquivo de configuracao
+11/06/2023 06:40:00 PM - INFO:Buscando dispositivos.
+11/06/2023 06:40:00 PM - INFO:Tentando conexão com o leitor biometrico
+11/06/2023 06:40:00 PM - INFO:Abrindo instancia.
+11/06/2023 06:40:00  - INFO:Abrindo Janela
+11/06/2023 06:40:01  - INFO:iniciando interface
+11/06/2023 06:40:01  - INFO:Atualizando Json com biometrias
+11/06/2023 06:40:01  - DEBUG:Starting new HTTPS connection (1): 3.17.123.189:9090
+11/06/2023 06:40:01  - DEBUG:https://3.17.123.189:9090 "POST /token HTTP/1.1" 200 172
+11/06/2023 06:40:02  - DEBUG:Starting new HTTPS connection (1): 3.17.123.189:9090
+11/06/2023 06:40:02  - DEBUG:https://3.17.123.189:9090 "GET /employeebio?siteid=DEFAULT HTTP/1.1" 200 6859
+11/06/2023 06:40:02  - INFO:Biometrias atualizadas com sucesso.
+11/06/2023 06:40:02  - INFO:Mostrando janela.

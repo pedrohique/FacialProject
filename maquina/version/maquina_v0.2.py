@@ -114,42 +114,42 @@ def busca_arduino(dir_linux):
 logging.info('Buscando dispositivos.')
 logging.info('Tentando conexão com o leitor biometrico')
 
-while True:
-    try:
-        # logging.info('Buscando dispositivos conectados')
-        dir_linux = os.listdir('/dev/')
-        finger = busca_sensor(dir_linux)
-        if finger:
-            break
-        time.sleep(1)
-    except OSError as e:
-        print(e)
-        logging.error(e)
-        pass
-    except RuntimeError as run_err:
-        print(run_err)
-        logging.error(run_err)
-        pass
+# while True:
+#     try:
+#         # logging.info('Buscando dispositivos conectados')
+#         dir_linux = os.listdir('/dev/')
+#         finger = busca_sensor(dir_linux)
+#         if finger:
+#             break
+#         time.sleep(1)
+#     except OSError as e:
+#         print(e)
+#         logging.error(e)
+#         pass
+#     except RuntimeError as run_err:
+#         print(run_err)
+#         logging.error(run_err)
+#         pass
 
-logging.info('Tentando conexão com o arduino')
-while True:
-    try:
-        dir_linux = os.listdir('/dev/')
-        ser = busca_arduino(dir_linux)
-        if ser:
-            break
-        time.sleep(1)
-    except OSError as e:
-        logging.error(e)
-        pass
-    except RuntimeError as run_err:
-        logging.error(run_err)
-        pass
+# logging.info('Tentando conexão com o arduino')
+# while True:
+#     try:
+#         dir_linux = os.listdir('/dev/')
+#         ser = busca_arduino(dir_linux)
+#         if ser:
+#             break
+#         time.sleep(1)
+#     except OSError as e:
+#         logging.error(e)
+        
+#     except RuntimeError as run_err:
+#         logging.error(run_err)
+    
 
 
 LETTERS1 = "qwertyuiop"
 LETTERS2 = "asdfghjkl"
-LETTERS3 = "zxcvbnm"
+LETTERS3 = "zxcvbnm←"
 NUMBERS = "1234567890"
 LUT = {
     "1": QtCore.Qt.Key_1,
@@ -162,7 +162,7 @@ LUT = {
     "8": QtCore.Qt.Key_8,
     "9": QtCore.Qt.Key_9,
     "0": QtCore.Qt.Key_0,
-    "←": QtCore.Qt.Key_Backspace,
+    
 
     "q": QtCore.Qt.Key_Q,
     "w": QtCore.Qt.Key_W,
@@ -224,6 +224,7 @@ LUT = {
     "B": QtCore.Qt.Key_B,
     "N": QtCore.Qt.Key_N,
     "M": QtCore.Qt.Key_M,
+    "←": QtCore.Qt.Key_Backspace,
 
     ".": QtCore.Qt.Key_Period,
 
@@ -253,7 +254,7 @@ class Janela(QMainWindow):
 
         widget = QWidget()
         widget.setLayout(self.grid)
-
+        self.setCursor(QtCore.Qt.BlankCursor) # esconde o cursor do mouse
         """ Botãoes """
 
         self.limpar = QPushButton('Limpar', self)
@@ -286,6 +287,7 @@ class Janela(QMainWindow):
         """Caixa Texto"""
         self.caixa_texto = QLineEdit(self)
         # self.caixa_texto.resize(500, 300)   # Largura x Altura
+        self.caixa_texto.setFocus()
         self.caixa_texto.setStyleSheet('padding :10px')
         self.caixa_texto.setMaximumHeight(65)
         #  self.caps = False
@@ -605,10 +607,11 @@ class Janela(QMainWindow):
         self.key = self.caixa_texto.text()
         # Verificação visual
         if self.key:
-            if self.key == ".1234.":
+            if self.key == "i9brgroup2390":
                 self.ImprimeLabel1('Atualizando as digitais.')
                 self.AtualizaJson()
-                self.caixa_texto.clear()
+                # self.caixa_texto.clear()
+                self.LimpaCampo()
                 # self.timer1.start(1000)
 
             else:
@@ -623,13 +626,15 @@ class Janela(QMainWindow):
                     else:
                         # print('Digital não cadastrada.')
                         self.ImprimeLabel1('Digital não cadastrada.', 'red')
-                        self.caixa_texto.clear()
+                        # self.caixa_texto.clear()
+                        self.LimpaCampo()
                         self.remove_teclado()
                 else:
                     # print('Usuario não cadastrado no sistema i9 procure um administrador')
                     self.ImprimeLabel1('Usuario não cadastrado no sistema i9,'
                                        '\n procure um administrador', 'red')
-                    self.caixa_texto.clear()
+                    self.LimpaCampo()
+                    # self.caixa_texto.clear()
 
 
     def ValidaDigital(self):
@@ -667,26 +672,30 @@ class Janela(QMainWindow):
 
             self.send_arduino(self.data[self.key][1])
 
-            self.caixa_texto.clear()
+            # self.caixa_texto.clear()
+            self.LimpaCampo()
 
         elif i == adafruit_fingerprint.NOMATCH:
             set_led_local(color=1, mode=2, speed=20, cycles=10)
 
             self.ImprimeLabel1(f'Digital não confere para o usuario: {self.key}', 'red')
-            self.caixa_texto.clear()
+            self.LimpaCampo()
+            # self.caixa_texto.clear()
 
         else:
             self.ImprimeLabel1('Other error!', 'red')
-            self.caixa_texto.clear()
+            self.LimpaCampo()
+            # self.caixa_texto.clear()
 
         self.timer_busca.stop()
 
     def LimpaCampo(self):
         self.caixa_texto.clear()
+        self.caixa_texto.setFocus()
         # self.remove_teclado()
 
     def LimpaLabel(self):
-        self.ImprimeLabel1('Pressione o campo a cima e digite sua <b style="color:green;">matrícula</b>.') 
+        self.ImprimeLabel1('Digite sua <b style="color:green;">matrícula</b>.')  # Pressione o campo a cima e 
 
         self.timer_limpa.stop()
 

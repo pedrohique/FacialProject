@@ -1,7 +1,7 @@
 import configparser
 import glob
 import time
-
+import curses
 
 import requests
 import re
@@ -13,7 +13,8 @@ import subprocess
 import os
 
 
-dir_local = '/home/pedro/BiometriaProject/maquina/'
+dir_local = '/home/i9/biometria1.0/maquina/'
+# dir_local = '/home/pedro/Projetos/BiometriaProject/maquina/'
 
 logging.basicConfig(filename= dir_local + '/logs/executor.log', level=logging.DEBUG, filemode='a+',
                     format='%(asctime)s - %(levelname)s:%(message)s', datefmt='%d/%m/%Y %I:%M:%S %p')
@@ -113,8 +114,9 @@ def download_version(site, ver, dir_local, api_url_base, loguin):
                 print('Atualização disponivel, baixando arquivos')
                 logging.info('Atualização disponivel, baixando arquivos')
                 if version:
-                    print(dir_local , 'version/maquina_' , version , '.py')
+                    # print(dir_local , 'version/maquina_' , version , '.py')
                     old_file = dir_local + 'version/maquina_' + version + '.py'
+                    print(old_file)
                     if old_file:
                         logging.info('Deletando versao antiga.')
                         os.remove(old_file)
