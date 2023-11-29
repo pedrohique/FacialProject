@@ -287,3 +287,26 @@
 11/06/2023 06:01:53 PM - INFO:Buscando dispositivos.
 11/06/2023 06:01:53 PM - INFO:Tentando conexão com o leitor biometrico
 11/06/2023 06:01:53 PM - INFO:Abrindo instancia.
+28/11/2023 09:05:54 PM - INFO:Buscando arquivo de configuracao.
+28/11/2023 09:05:54 PM - INFO:Tentando encontrar o arquivo de config.
+28/11/2023 09:05:54 PM - INFO:Config encontrado.
+28/11/2023 09:05:54 PM - INFO:Dados de configuração -- ok
+28/11/2023 09:05:54 PM - INFO:Buscando dados de conexao no arquivo de configuracao
+28/11/2023 09:05:54 PM - INFO:Buscando versao atual
+28/11/2023 09:05:54 PM - INFO:Versao encontrada -- vFA0.1.
+28/11/2023 09:05:54 PM - INFO:Verificando atualizações disponiveis.
+28/11/2023 09:05:54 PM - INFO:Buscando token de API
+28/11/2023 09:05:54 PM - DEBUG:Starting new HTTPS connection (1): 3.17.123.189:9090
+28/11/2023 09:05:55 PM - DEBUG:https://3.17.123.189:9090 "POST /token HTTP/1.1" 200 172
+28/11/2023 09:05:55 PM - INFO:Token encontrado com sucesso.
+28/11/2023 09:05:55 PM - INFO:Buscando versao na api.
+28/11/2023 09:05:55 PM - DEBUG:Starting new HTTPS connection (1): 3.17.123.189:9090
+28/11/2023 09:05:56 PM - DEBUG:https://3.17.123.189:9090 "GET /getversion?siteid=DEFAULT&version=vFA0.1 HTTP/1.1" 200 23984
+28/11/2023 09:05:57 PM - INFO:Versao encontrada.
+28/11/2023 09:05:57 PM - INFO:Comparando versoes.
+28/11/2023 09:05:57 PM - DEBUG:Encoding detection: utf_8 is most likely the one.
+28/11/2023 09:05:57 PM - INFO:Atualização disponivel, baixando arquivos
+28/11/2023 09:05:57 PM - INFO:Deletando versao antiga.
+28/11/2023 09:05:57 PM - INFO:Criando arquivo.
+28/11/2023 09:05:57 PM - INFO:Atualização efetuada com sucesso.
+28/11/2023 09:05:57 PM - INFO:Abrindo sistema -- /home/pedro/Projetos/FacialProject/version/maquina_v0.3.py

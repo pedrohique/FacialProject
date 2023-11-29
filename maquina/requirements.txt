@@ -1,5 +1,0 @@
-adafruit_circuitpython_fingerprint==2.2.10
-adafruit_fingerprint==1.0.0
-PyQt5==5.15.7
-pyserial==3.5
-requests==2.22.0

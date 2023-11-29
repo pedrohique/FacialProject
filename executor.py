@@ -13,8 +13,8 @@ import subprocess
 import os
 
 
-dir_local = '/home/i9/biometria1.0/maquina/'
-# dir_local = '/home/pedro/Projetos/BiometriaProject/maquina/'
+# dir_local = '/home/i9/biometria1.0/maquina/'
+dir_local = '/home/pedro/Projetos/FacialProject/'
 
 logging.basicConfig(filename= dir_local + '/logs/executor.log', level=logging.DEBUG, filemode='a+',
                     format='%(asctime)s - %(levelname)s:%(message)s', datefmt='%d/%m/%Y %I:%M:%S %p')

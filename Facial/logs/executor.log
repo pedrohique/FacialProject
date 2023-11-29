@@ -1,0 +1,312 @@
+05/06/2023 10:49:42 PM - INFO:Buscando arquivo de configuracao.
+05/06/2023 10:49:42 PM - INFO:Tentando encontrar o arquivo de config.
+05/06/2023 10:49:42 PM - INFO:Config encontrado.
+05/06/2023 10:49:42 PM - INFO:Dados de configuração -- ok
+05/06/2023 10:49:42 PM - INFO:Buscando dados de conexao no arquivo de configuracao
+05/06/2023 10:49:42 PM - INFO:Buscando versao atual
+05/06/2023 10:49:42 PM - INFO:Versao encontrada -- v0.1.
+05/06/2023 10:49:42 PM - INFO:Verificando atualizações disponiveis.
+05/06/2023 10:49:42 PM - INFO:Buscando token de API
+05/06/2023 10:49:42 PM - DEBUG:Starting new HTTPS connection (1): 3.17.123.189:9090
+05/06/2023 10:49:43 PM - DEBUG:https://3.17.123.189:9090 "POST /token HTTP/1.1" 200 172
+05/06/2023 10:49:43 PM - INFO:Token encontrado com sucesso.
+05/06/2023 10:49:43 PM - INFO:Buscando versao na api.
+05/06/2023 10:49:43 PM - DEBUG:Starting new HTTPS connection (1): 3.17.123.189:9090
+05/06/2023 10:49:44 PM - DEBUG:https://3.17.123.189:9090 "GET /getversion?siteid=DEFAULT&version=v0.1 HTTP/1.1" 200 22884
+05/06/2023 10:49:44 PM - INFO:Versao encontrada.
+05/06/2023 10:49:44 PM - INFO:Comparando versoes.
+05/06/2023 10:49:44 PM - DEBUG:Encoding detection: utf_8 is most likely the one.
+05/06/2023 10:49:44 PM - INFO:Atualização disponivel, baixando arquivos
+05/06/2023 10:49:44 PM - INFO:Deletando versao antiga.
+05/06/2023 10:49:44 PM - INFO:Criando arquivo.
+05/06/2023 10:49:44 PM - INFO:Atualização efetuada com sucesso.
+05/06/2023 10:49:44 PM - INFO:Abrindo sistema -- /home/pedro/Projetos/BiometriaProject/maquina/version/maquina_v0.2.py
+05/06/2023 10:49:44 PM - INFO:Buscando arquivo de configuracao.
+05/06/2023 10:51:24 PM - INFO:Buscando arquivo de configuracao.
+05/06/2023 10:51:24 PM - INFO:Tentando encontrar o arquivo de config.
+05/06/2023 10:51:24 PM - INFO:Config encontrado.
+05/06/2023 10:51:24 PM - INFO:Dados de configuração -- ok
+05/06/2023 10:51:24 PM - INFO:Buscando dados de conexao no arquivo de configuracao
+05/06/2023 10:51:24 PM - INFO:Buscando versao atual
+05/06/2023 10:51:24 PM - INFO:Versao encontrada -- v0.2.
+05/06/2023 10:51:24 PM - INFO:Verificando atualizações disponiveis.
+05/06/2023 10:51:24 PM - INFO:Buscando token de API
+05/06/2023 10:51:24 PM - DEBUG:Starting new HTTPS connection (1): 3.17.123.189:9090
+05/06/2023 10:51:25 PM - DEBUG:https://3.17.123.189:9090 "POST /token HTTP/1.1" 200 172
+05/06/2023 10:51:25 PM - INFO:Token encontrado com sucesso.
+05/06/2023 10:51:25 PM - INFO:Buscando versao na api.
+05/06/2023 10:51:25 PM - DEBUG:Starting new HTTPS connection (1): 3.17.123.189:9090
+05/06/2023 10:51:26 PM - DEBUG:https://3.17.123.189:9090 "GET /getversion?siteid=DEFAULT&version=v0.2 HTTP/1.1" 200 15
+05/06/2023 10:51:26 PM - INFO:Versao encontrada.
+05/06/2023 10:51:26 PM - INFO:Comparando versoes.
+05/06/2023 10:51:26 PM - INFO:Não há atualizações disponiveis, abrindo sistema.
+05/06/2023 10:51:26 PM - INFO:Abrindo sistema -- /home/pedro/Projetos/BiometriaProject/maquina/version/maquina_v0.2.py
+05/06/2023 10:51:26 PM - INFO:Buscando arquivo de configuracao.
+05/06/2023 10:51:56 PM - INFO:Buscando arquivo de configuracao.
+05/06/2023 10:51:56 PM - INFO:Tentando encontrar o arquivo de config.
+05/06/2023 10:51:56 PM - INFO:Config encontrado.
+05/06/2023 10:51:56 PM - INFO:Dados de configuração -- ok
+05/06/2023 10:51:56 PM - INFO:Buscando dados de conexao no arquivo de configuracao
+05/06/2023 10:51:56 PM - INFO:Buscando versao atual
+05/06/2023 10:51:56 PM - INFO:Versao encontrada -- v0.2.
+05/06/2023 10:51:56 PM - INFO:Verificando atualizações disponiveis.
+05/06/2023 10:51:56 PM - INFO:Buscando token de API
+05/06/2023 10:51:56 PM - DEBUG:Starting new HTTPS connection (1): 3.17.123.189:9090
+05/06/2023 10:51:57 PM - DEBUG:https://3.17.123.189:9090 "POST /token HTTP/1.1" 200 172
+05/06/2023 10:51:57 PM - INFO:Token encontrado com sucesso.
+05/06/2023 10:51:57 PM - INFO:Buscando versao na api.
+05/06/2023 10:51:57 PM - DEBUG:Starting new HTTPS connection (1): 3.17.123.189:9090
+05/06/2023 10:51:58 PM - DEBUG:https://3.17.123.189:9090 "GET /getversion?siteid=DEFAULT&version=v0.2 HTTP/1.1" 200 15
+05/06/2023 10:51:58 PM - INFO:Versao encontrada.
+05/06/2023 10:51:58 PM - INFO:Comparando versoes.
+05/06/2023 10:51:58 PM - INFO:Não há atualizações disponiveis, abrindo sistema.
+05/06/2023 10:51:58 PM - INFO:Abrindo sistema -- /home/pedro/Projetos/BiometriaProject/maquina/version/maquina_v0.2.py
+05/06/2023 10:51:58 PM - INFO:Buscando arquivo de configuracao.
+05/06/2023 10:54:11 PM - INFO:Buscando arquivo de configuracao.
+05/06/2023 10:54:11 PM - INFO:Tentando encontrar o arquivo de config.
+05/06/2023 10:54:11 PM - INFO:Config encontrado.
+05/06/2023 10:54:11 PM - INFO:Dados de configuração -- ok
+05/06/2023 10:54:11 PM - INFO:Buscando dados de conexao no arquivo de configuracao
+05/06/2023 10:54:11 PM - INFO:Buscando versao atual
+05/06/2023 10:54:11 PM - INFO:Versao encontrada -- v0.22.
+05/06/2023 10:54:11 PM - INFO:Verificando atualizações disponiveis.
+05/06/2023 10:54:11 PM - INFO:Buscando token de API
+05/06/2023 10:54:11 PM - DEBUG:Starting new HTTPS connection (1): 3.17.123.189:9090
+05/06/2023 10:54:12 PM - DEBUG:https://3.17.123.189:9090 "POST /token HTTP/1.1" 200 172
+05/06/2023 10:54:12 PM - INFO:Token encontrado com sucesso.
+05/06/2023 10:54:12 PM - INFO:Buscando versao na api.
+05/06/2023 10:54:12 PM - DEBUG:Starting new HTTPS connection (1): 3.17.123.189:9090
+05/06/2023 10:54:12 PM - DEBUG:https://3.17.123.189:9090 "GET /getversion?siteid=DEFAULT&version=v0.22 HTTP/1.1" 200 22884
+05/06/2023 10:54:13 PM - INFO:Versao encontrada.
+05/06/2023 10:54:13 PM - INFO:Comparando versoes.
+05/06/2023 10:54:13 PM - DEBUG:Encoding detection: utf_8 is most likely the one.
+05/06/2023 10:54:13 PM - INFO:Atualização disponivel, baixando arquivos
+05/06/2023 10:54:13 PM - INFO:Deletando versao antiga.
+05/06/2023 10:54:13 PM - INFO:Criando arquivo.
+05/06/2023 10:54:13 PM - INFO:Atualização efetuada com sucesso.
+05/06/2023 10:54:13 PM - INFO:Abrindo sistema -- /home/pedro/Projetos/BiometriaProject/maquina/version/maquina_v0.2.py
+05/06/2023 10:54:13 PM - INFO:Buscando arquivo de configuracao.
+05/06/2023 10:56:07 PM - INFO:Buscando arquivo de configuracao.
+05/06/2023 10:56:07 PM - INFO:Tentando encontrar o arquivo de config.
+05/06/2023 10:56:07 PM - INFO:Config encontrado.
+05/06/2023 10:56:07 PM - INFO:Dados de configuração -- ok
+05/06/2023 10:56:07 PM - INFO:Buscando dados de conexao no arquivo de configuracao
+05/06/2023 10:56:07 PM - INFO:Buscando versao atual
+05/06/2023 10:56:07 PM - INFO:Versao encontrada -- v0.2.
+05/06/2023 10:56:07 PM - INFO:Verificando atualizações disponiveis.
+05/06/2023 10:56:07 PM - INFO:Buscando token de API
+05/06/2023 10:56:07 PM - DEBUG:Starting new HTTPS connection (1): 3.17.123.189:9090
+05/06/2023 10:56:08 PM - DEBUG:https://3.17.123.189:9090 "POST /token HTTP/1.1" 200 172
+05/06/2023 10:56:08 PM - INFO:Token encontrado com sucesso.
+05/06/2023 10:56:08 PM - INFO:Buscando versao na api.
+05/06/2023 10:56:08 PM - DEBUG:Starting new HTTPS connection (1): 3.17.123.189:9090
+05/06/2023 10:56:09 PM - DEBUG:https://3.17.123.189:9090 "GET /getversion?siteid=DEFAULT&version=v0.2 HTTP/1.1" 200 15
+05/06/2023 10:56:09 PM - INFO:Versao encontrada.
+05/06/2023 10:56:09 PM - INFO:Comparando versoes.
+05/06/2023 10:56:09 PM - INFO:Não há atualizações disponiveis, abrindo sistema.
+05/06/2023 10:56:09 PM - INFO:Abrindo sistema -- /home/pedro/Projetos/BiometriaProject/maquina/version/maquina_v0.2.py
+05/06/2023 10:56:09 PM - INFO:Buscando arquivo de configuracao.
+05/06/2023 10:56:09 PM - INFO:Dados de configuração -- ok
+05/06/2023 10:56:09 PM - INFO:Buscando dados de conexao no arquivo de configuracao
+05/06/2023 10:56:09 PM - INFO:Buscando dispositivos.
+05/06/2023 10:56:09 PM - INFO:Tentando conexão com o leitor biometrico
+11/06/2023 05:52:24 PM - INFO:Buscando arquivo de configuracao.
+11/06/2023 05:52:24 PM - INFO:Tentando encontrar o arquivo de config.
+11/06/2023 05:52:24 PM - INFO:Config encontrado.
+11/06/2023 05:52:24 PM - INFO:Dados de configuração -- ok
+11/06/2023 05:52:24 PM - INFO:Buscando dados de conexao no arquivo de configuracao
+11/06/2023 05:52:24 PM - INFO:Buscando versao atual
+11/06/2023 05:52:24 PM - INFO:Versao encontrada -- v0.2.
+11/06/2023 05:52:24 PM - INFO:Verificando atualizações disponiveis.
+11/06/2023 05:52:24 PM - INFO:Buscando token de API
+11/06/2023 05:52:24 PM - DEBUG:Starting new HTTPS connection (1): 3.17.123.189:9090
+11/06/2023 05:52:25 PM - DEBUG:https://3.17.123.189:9090 "POST /token HTTP/1.1" 200 172
+11/06/2023 05:52:25 PM - INFO:Token encontrado com sucesso.
+11/06/2023 05:52:25 PM - INFO:Buscando versao na api.
+11/06/2023 05:52:25 PM - DEBUG:Starting new HTTPS connection (1): 3.17.123.189:9090
+11/06/2023 05:52:26 PM - DEBUG:https://3.17.123.189:9090 "GET /getversion?siteid=DEFAULT&version=v0.2 HTTP/1.1" 200 15
+11/06/2023 05:52:26 PM - INFO:Versao encontrada.
+11/06/2023 05:52:26 PM - INFO:Comparando versoes.
+11/06/2023 05:52:26 PM - INFO:Não há atualizações disponiveis, abrindo sistema.
+11/06/2023 05:52:26 PM - INFO:Abrindo sistema -- /home/pedro/Projetos/BiometriaProject/maquina/version/maquina_v0.2.py
+11/06/2023 05:52:26 PM - INFO:Buscando arquivo de configuracao.
+11/06/2023 05:52:26 PM - INFO:Dados de configuração -- ok
+11/06/2023 05:52:26 PM - INFO:Buscando dados de conexao no arquivo de configuracao
+11/06/2023 05:52:26 PM - INFO:Buscando dispositivos.
+11/06/2023 05:52:26 PM - INFO:Tentando conexão com o leitor biometrico
+11/06/2023 05:52:26 PM - INFO:Abrindo instancia.
+11/06/2023 05:52:26  - INFO:Abrindo Janela
+11/06/2023 05:52:26  - INFO:iniciando interface
+11/06/2023 05:52:26  - INFO:Atualizando Json com biometrias
+11/06/2023 05:52:26  - DEBUG:Starting new HTTPS connection (1): 3.17.123.189:9090
+11/06/2023 05:52:27  - DEBUG:https://3.17.123.189:9090 "POST /token HTTP/1.1" 200 172
+11/06/2023 05:52:27  - DEBUG:Starting new HTTPS connection (1): 3.17.123.189:9090
+11/06/2023 05:52:28  - DEBUG:https://3.17.123.189:9090 "GET /employeebio?siteid=DEFAULT HTTP/1.1" 200 6859
+11/06/2023 05:52:28  - INFO:Biometrias atualizadas com sucesso.
+11/06/2023 05:52:28  - INFO:Mostrando janela.
+11/06/2023 05:53:22 PM - INFO:Buscando arquivo de configuracao.
+11/06/2023 05:53:22 PM - INFO:Tentando encontrar o arquivo de config.
+11/06/2023 05:53:22 PM - INFO:Config encontrado.
+11/06/2023 05:53:22 PM - INFO:Dados de configuração -- ok
+11/06/2023 05:53:22 PM - INFO:Buscando dados de conexao no arquivo de configuracao
+11/06/2023 05:53:22 PM - INFO:Buscando versao atual
+11/06/2023 05:53:22 PM - INFO:Versao encontrada -- v0.2.
+11/06/2023 05:53:22 PM - INFO:Verificando atualizações disponiveis.
+11/06/2023 05:53:22 PM - INFO:Buscando token de API
+11/06/2023 05:53:22 PM - DEBUG:Starting new HTTPS connection (1): 3.17.123.189:9090
+11/06/2023 05:53:23 PM - DEBUG:https://3.17.123.189:9090 "POST /token HTTP/1.1" 200 172
+11/06/2023 05:53:23 PM - INFO:Token encontrado com sucesso.
+11/06/2023 05:53:23 PM - INFO:Buscando versao na api.
+11/06/2023 05:53:23 PM - DEBUG:Starting new HTTPS connection (1): 3.17.123.189:9090
+11/06/2023 05:53:24 PM - DEBUG:https://3.17.123.189:9090 "GET /getversion?siteid=DEFAULT&version=v0.2 HTTP/1.1" 200 15
+11/06/2023 05:53:24 PM - INFO:Versao encontrada.
+11/06/2023 05:53:24 PM - INFO:Comparando versoes.
+11/06/2023 05:53:24 PM - INFO:Não há atualizações disponiveis, abrindo sistema.
+11/06/2023 05:53:24 PM - INFO:Abrindo sistema -- /home/pedro/Projetos/BiometriaProject/maquina/version/maquina_v0.2.py
+11/06/2023 05:53:24 PM - INFO:Buscando arquivo de configuracao.
+11/06/2023 05:53:24 PM - INFO:Dados de configuração -- ok
+11/06/2023 05:53:24 PM - INFO:Buscando dados de conexao no arquivo de configuracao
+11/06/2023 05:53:24 PM - INFO:Buscando dispositivos.
+11/06/2023 05:53:24 PM - INFO:Tentando conexão com o leitor biometrico
+11/06/2023 05:53:24 PM - INFO:Abrindo instancia.
+11/06/2023 05:53:24  - INFO:Abrindo Janela
+11/06/2023 05:53:24  - INFO:iniciando interface
+11/06/2023 05:53:24  - INFO:Atualizando Json com biometrias
+11/06/2023 05:53:24  - DEBUG:Starting new HTTPS connection (1): 3.17.123.189:9090
+11/06/2023 05:53:25  - DEBUG:https://3.17.123.189:9090 "POST /token HTTP/1.1" 200 172
+11/06/2023 05:53:25  - DEBUG:Starting new HTTPS connection (1): 3.17.123.189:9090
+11/06/2023 05:53:27  - DEBUG:https://3.17.123.189:9090 "GET /employeebio?siteid=DEFAULT HTTP/1.1" 200 6859
+11/06/2023 05:53:27  - INFO:Biometrias atualizadas com sucesso.
+11/06/2023 05:53:27  - INFO:Mostrando janela.
+11/06/2023 05:54:00 PM - INFO:Buscando arquivo de configuracao.
+11/06/2023 05:54:00 PM - INFO:Tentando encontrar o arquivo de config.
+11/06/2023 05:54:00 PM - INFO:Config encontrado.
+11/06/2023 05:54:00 PM - INFO:Dados de configuração -- ok
+11/06/2023 05:54:00 PM - INFO:Buscando dados de conexao no arquivo de configuracao
+11/06/2023 05:54:00 PM - INFO:Buscando versao atual
+11/06/2023 05:54:00 PM - INFO:Versao encontrada -- v0.2.
+11/06/2023 05:54:00 PM - INFO:Verificando atualizações disponiveis.
+11/06/2023 05:54:00 PM - INFO:Buscando token de API
+11/06/2023 05:54:00 PM - DEBUG:Starting new HTTPS connection (1): 3.17.123.189:9090
+11/06/2023 05:54:00 PM - DEBUG:https://3.17.123.189:9090 "POST /token HTTP/1.1" 200 172
+11/06/2023 05:54:01 PM - INFO:Token encontrado com sucesso.
+11/06/2023 05:54:01 PM - INFO:Buscando versao na api.
+11/06/2023 05:54:01 PM - DEBUG:Starting new HTTPS connection (1): 3.17.123.189:9090
+11/06/2023 05:54:01 PM - DEBUG:https://3.17.123.189:9090 "GET /getversion?siteid=DEFAULT&version=v0.2 HTTP/1.1" 200 15
+11/06/2023 05:54:01 PM - INFO:Versao encontrada.
+11/06/2023 05:54:01 PM - INFO:Comparando versoes.
+11/06/2023 05:54:01 PM - INFO:Não há atualizações disponiveis, abrindo sistema.
+11/06/2023 05:54:01 PM - INFO:Abrindo sistema -- /home/pedro/Projetos/BiometriaProject/maquina/version/maquina_v0.2.py
+11/06/2023 05:54:01 PM - INFO:Buscando arquivo de configuracao.
+11/06/2023 05:54:01 PM - INFO:Dados de configuração -- ok
+11/06/2023 05:54:01 PM - INFO:Buscando dados de conexao no arquivo de configuracao
+11/06/2023 05:54:01 PM - INFO:Buscando dispositivos.
+11/06/2023 05:54:01 PM - INFO:Tentando conexão com o leitor biometrico
+11/06/2023 05:54:01 PM - INFO:Abrindo instancia.
+11/06/2023 05:54:02  - INFO:Abrindo Janela
+11/06/2023 05:54:02  - INFO:iniciando interface
+11/06/2023 05:54:02  - INFO:Atualizando Json com biometrias
+11/06/2023 05:54:02  - DEBUG:Starting new HTTPS connection (1): 3.17.123.189:9090
+11/06/2023 05:54:03  - DEBUG:https://3.17.123.189:9090 "POST /token HTTP/1.1" 200 172
+11/06/2023 05:54:03  - DEBUG:Starting new HTTPS connection (1): 3.17.123.189:9090
+11/06/2023 05:54:04  - DEBUG:https://3.17.123.189:9090 "GET /employeebio?siteid=DEFAULT HTTP/1.1" 200 6859
+11/06/2023 05:54:04  - INFO:Biometrias atualizadas com sucesso.
+11/06/2023 05:54:04  - INFO:Mostrando janela.
+11/06/2023 06:01:11 PM - INFO:Buscando arquivo de configuracao.
+11/06/2023 06:01:11 PM - INFO:Tentando encontrar o arquivo de config.
+11/06/2023 06:01:11 PM - INFO:Config encontrado.
+11/06/2023 06:01:11 PM - INFO:Dados de configuração -- ok
+11/06/2023 06:01:11 PM - INFO:Buscando dados de conexao no arquivo de configuracao
+11/06/2023 06:01:11 PM - INFO:Buscando versao atual
+11/06/2023 06:01:11 PM - INFO:Versao encontrada -- v0.2.
+11/06/2023 06:01:11 PM - INFO:Verificando atualizações disponiveis.
+11/06/2023 06:01:11 PM - INFO:Buscando token de API
+11/06/2023 06:01:11 PM - DEBUG:Starting new HTTPS connection (1): 3.17.123.189:9090
+11/06/2023 06:01:12 PM - DEBUG:https://3.17.123.189:9090 "POST /token HTTP/1.1" 200 172
+11/06/2023 06:01:12 PM - INFO:Token encontrado com sucesso.
+11/06/2023 06:01:12 PM - INFO:Buscando versao na api.
+11/06/2023 06:01:12 PM - DEBUG:Starting new HTTPS connection (1): 3.17.123.189:9090
+11/06/2023 06:01:13 PM - DEBUG:https://3.17.123.189:9090 "GET /getversion?siteid=DEFAULT&version=v0.2 HTTP/1.1" 200 15
+11/06/2023 06:01:13 PM - INFO:Versao encontrada.
+11/06/2023 06:01:13 PM - INFO:Comparando versoes.
+11/06/2023 06:01:13 PM - INFO:Não há atualizações disponiveis, abrindo sistema.
+11/06/2023 06:01:13 PM - INFO:Abrindo sistema -- /home/pedro/Projetos/BiometriaProject/maquina/version/maquina_v0.2.py
+11/06/2023 06:01:13 PM - INFO:Buscando arquivo de configuracao.
+11/06/2023 06:01:13 PM - INFO:Dados de configuração -- ok
+11/06/2023 06:01:13 PM - INFO:Buscando dados de conexao no arquivo de configuracao
+11/06/2023 06:01:13 PM - INFO:Buscando dispositivos.
+11/06/2023 06:01:13 PM - INFO:Tentando conexão com o leitor biometrico
+11/06/2023 06:01:13 PM - INFO:Abrindo instancia.
+11/06/2023 06:01:27 PM - INFO:Buscando arquivo de configuracao.
+11/06/2023 06:01:27 PM - INFO:Tentando encontrar o arquivo de config.
+11/06/2023 06:01:27 PM - INFO:Config encontrado.
+11/06/2023 06:01:27 PM - INFO:Dados de configuração -- ok
+11/06/2023 06:01:27 PM - INFO:Buscando dados de conexao no arquivo de configuracao
+11/06/2023 06:01:27 PM - INFO:Buscando versao atual
+11/06/2023 06:01:27 PM - INFO:Versao encontrada -- v0.2.
+11/06/2023 06:01:27 PM - INFO:Verificando atualizações disponiveis.
+11/06/2023 06:01:27 PM - INFO:Buscando token de API
+11/06/2023 06:01:27 PM - DEBUG:Starting new HTTPS connection (1): 3.17.123.189:9090
+11/06/2023 06:01:28 PM - DEBUG:https://3.17.123.189:9090 "POST /token HTTP/1.1" 200 172
+11/06/2023 06:01:28 PM - INFO:Token encontrado com sucesso.
+11/06/2023 06:01:28 PM - INFO:Buscando versao na api.
+11/06/2023 06:01:28 PM - DEBUG:Starting new HTTPS connection (1): 3.17.123.189:9090
+11/06/2023 06:01:28 PM - DEBUG:https://3.17.123.189:9090 "GET /getversion?siteid=DEFAULT&version=v0.2 HTTP/1.1" 200 15
+11/06/2023 06:01:28 PM - INFO:Versao encontrada.
+11/06/2023 06:01:28 PM - INFO:Comparando versoes.
+11/06/2023 06:01:28 PM - INFO:Não há atualizações disponiveis, abrindo sistema.
+11/06/2023 06:01:28 PM - INFO:Abrindo sistema -- /home/pedro/Projetos/BiometriaProject/maquina/version/maquina_v0.2.py
+11/06/2023 06:01:28 PM - INFO:Buscando arquivo de configuracao.
+11/06/2023 06:01:28 PM - INFO:Dados de configuração -- ok
+11/06/2023 06:01:28 PM - INFO:Buscando dados de conexao no arquivo de configuracao
+11/06/2023 06:01:28 PM - INFO:Buscando dispositivos.
+11/06/2023 06:01:28 PM - INFO:Tentando conexão com o leitor biometrico
+11/06/2023 06:01:28 PM - INFO:Abrindo instancia.
+11/06/2023 06:01:52 PM - INFO:Buscando arquivo de configuracao.
+11/06/2023 06:01:52 PM - INFO:Tentando encontrar o arquivo de config.
+11/06/2023 06:01:52 PM - INFO:Config encontrado.
+11/06/2023 06:01:52 PM - INFO:Dados de configuração -- ok
+11/06/2023 06:01:52 PM - INFO:Buscando dados de conexao no arquivo de configuracao
+11/06/2023 06:01:52 PM - INFO:Buscando versao atual
+11/06/2023 06:01:52 PM - INFO:Versao encontrada -- v0.2.
+11/06/2023 06:01:52 PM - INFO:Verificando atualizações disponiveis.
+11/06/2023 06:01:52 PM - INFO:Buscando token de API
+11/06/2023 06:01:52 PM - DEBUG:Starting new HTTPS connection (1): 3.17.123.189:9090
+11/06/2023 06:01:53 PM - DEBUG:https://3.17.123.189:9090 "POST /token HTTP/1.1" 200 172
+11/06/2023 06:01:53 PM - INFO:Token encontrado com sucesso.
+11/06/2023 06:01:53 PM - INFO:Buscando versao na api.
+11/06/2023 06:01:53 PM - DEBUG:Starting new HTTPS connection (1): 3.17.123.189:9090
+11/06/2023 06:01:53 PM - DEBUG:https://3.17.123.189:9090 "GET /getversion?siteid=DEFAULT&version=v0.2 HTTP/1.1" 200 15
+11/06/2023 06:01:53 PM - INFO:Versao encontrada.
+11/06/2023 06:01:53 PM - INFO:Comparando versoes.
+11/06/2023 06:01:53 PM - INFO:Não há atualizações disponiveis, abrindo sistema.
+11/06/2023 06:01:53 PM - INFO:Abrindo sistema -- /home/pedro/Projetos/BiometriaProject/maquina/version/maquina_v0.2.py
+11/06/2023 06:01:53 PM - INFO:Buscando arquivo de configuracao.
+11/06/2023 06:01:53 PM - INFO:Dados de configuração -- ok
+11/06/2023 06:01:53 PM - INFO:Buscando dados de conexao no arquivo de configuracao
+11/06/2023 06:01:53 PM - INFO:Buscando dispositivos.
+11/06/2023 06:01:53 PM - INFO:Tentando conexão com o leitor biometrico
+11/06/2023 06:01:53 PM - INFO:Abrindo instancia.
+28/11/2023 09:05:54 PM - INFO:Buscando arquivo de configuracao.
+28/11/2023 09:05:54 PM - INFO:Tentando encontrar o arquivo de config.
+28/11/2023 09:05:54 PM - INFO:Config encontrado.
+28/11/2023 09:05:54 PM - INFO:Dados de configuração -- ok
+28/11/2023 09:05:54 PM - INFO:Buscando dados de conexao no arquivo de configuracao
+28/11/2023 09:05:54 PM - INFO:Buscando versao atual
+28/11/2023 09:05:54 PM - INFO:Versao encontrada -- vFA0.1.
+28/11/2023 09:05:54 PM - INFO:Verificando atualizações disponiveis.
+28/11/2023 09:05:54 PM - INFO:Buscando token de API
+28/11/2023 09:05:54 PM - DEBUG:Starting new HTTPS connection (1): 3.17.123.189:9090
+28/11/2023 09:05:55 PM - DEBUG:https://3.17.123.189:9090 "POST /token HTTP/1.1" 200 172
+28/11/2023 09:05:55 PM - INFO:Token encontrado com sucesso.
+28/11/2023 09:05:55 PM - INFO:Buscando versao na api.
+28/11/2023 09:05:55 PM - DEBUG:Starting new HTTPS connection (1): 3.17.123.189:9090
+28/11/2023 09:05:56 PM - DEBUG:https://3.17.123.189:9090 "GET /getversion?siteid=DEFAULT&version=vFA0.1 HTTP/1.1" 200 23984
+28/11/2023 09:05:57 PM - INFO:Versao encontrada.
+28/11/2023 09:05:57 PM - INFO:Comparando versoes.
+28/11/2023 09:05:57 PM - DEBUG:Encoding detection: utf_8 is most likely the one.
+28/11/2023 09:05:57 PM - INFO:Atualização disponivel, baixando arquivos
+28/11/2023 09:05:57 PM - INFO:Deletando versao antiga.
+28/11/2023 09:05:57 PM - INFO:Criando arquivo.
+28/11/2023 09:05:57 PM - INFO:Atualização efetuada com sucesso.
+28/11/2023 09:05:57 PM - INFO:Abrindo sistema -- /home/pedro/Projetos/FacialProject/version/maquina_v0.3.py
