@@ -2581,3 +2581,7 @@
 28/11/2023 09:15:40  - DEBUG:https://3.17.123.189:9090 "GET /employeebio?siteid=DEFAULT HTTP/1.1" 200 8856
 28/11/2023 09:15:40  - INFO:Biometrias atualizadas com sucesso.
 28/11/2023 09:15:40  - INFO:Mostrando janela.
+04/12/2023 08:55:05 PM - INFO:Buscando arquivo de configuracao.
+04/12/2023 08:55:05 PM - INFO:Dados de configuração -- ok
+04/12/2023 08:55:05 PM - INFO:Buscando dados de conexao no arquivo de configuracao
+04/12/2023 08:55:05 PM - INFO:Tentando conexão com o arduino

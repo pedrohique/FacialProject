@@ -32,6 +32,27 @@ dir_local = '/home/pedro/Projetos/FacialProject/'
 logging.basicConfig(filename= dir_local + '/logs/biometria.log', level=logging.DEBUG, filemode='a+',
                     format='%(asctime)s - %(levelname)s:%(message)s', datefmt='%d/%m/%Y %I:%M:%S %p')
 
+def busca_arduino(dir_linux):
+    """Essa função faz a conexão com o arduino"""
+    print('Tentando conexão com o arduino')
+    # logging.info('Tentando conexão com o arduino')
+    for i in dir_linux:
+        if i.startswith('ttyUSB'):
+            if i not in lista_sensores:
+                try:
+                    #  Faz a conexão com o leitor biometrico
+                    os.system('sudo chmod a+rw /dev/' + i)  # só funciona quando executado no cmd
+                    ser = serial.Serial(f"/dev/{i}", baudrate=9600, timeout=1)
+                    print('Conexão -- OK')
+                    logging.info(f'Arduino encontrado. -- {i}')
+                    return ser
+                except OSError as e:
+                    print("Arduino não encontrado... Tentando novamente")
+                    pass
+                except RuntimeError as run_err:
+                    print("Arduino não encontrado... Tentando novamente")
+                    pass
+
 
 
 
@@ -69,13 +90,26 @@ try:
 except OSError as e:
     logging.error(e)
 
+logging.info('Tentando conexão com o arduino')
+while True:
+    try:
+        dir_linux = os.listdir('/dev/')
+        ser = busca_arduino(dir_linux)
+        if ser:
+            break
+        time.sleep(1)
+    except OSError as e:
+        logging.error(e)
+        
+    except RuntimeError as run_err:
+        logging.error(run_err)
+
 
 lista_sensores = []
 
 
 
-logging.info('Buscando dispositivos.')
-logging.info('Tentando conexão com o leitor biometrico')
+
 
 
 
@@ -646,7 +680,7 @@ class Janela(QMainWindow):
                     if resp_text:
                         self.ImprimeLabel1(
                             f'Acesso liberado - Usuario: {self.key}.', self.green_logo)                        
-                        # self.send_arduino(self.data[self.key][1])
+                        self.send_arduino(self.data[self.key][1])
                         os.remove(name_img) 
 
 
